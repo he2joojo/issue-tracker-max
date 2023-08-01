@@ -1,7 +1,7 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.RepositoryTest;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.vo.IssueByMilestoneVO;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.IssueByMilestoneVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.MilestoneStatVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.StatVO;
 import java.util.List;

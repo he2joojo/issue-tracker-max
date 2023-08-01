@@ -1,7 +1,7 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.MilestoneRepository;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.vo.IssueByMilestoneVO;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.IssueByMilestoneVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.vo.MilestoneDetailsVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.information.MilestonePageInformation;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.StatRepository;

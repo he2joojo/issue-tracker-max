@@ -1,11 +1,10 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.ServiceTest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.MilestoneRepository;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.vo.IssueByMilestoneVO;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.IssueByMilestoneVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.vo.MilestoneDetailsVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.information.MilestonePageInformation;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.StatRepository;
@@ -13,7 +12,6 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.Milest
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

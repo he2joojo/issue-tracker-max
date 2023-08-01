@@ -1,6 +1,6 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.information;
 
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.vo.IssueByMilestoneVO;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.IssueByMilestoneVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.vo.MilestoneDetailsVO;
 import java.time.LocalDate;
 import java.util.List;
