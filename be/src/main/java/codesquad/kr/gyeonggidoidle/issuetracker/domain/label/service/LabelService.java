@@ -1,6 +1,5 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.label.service;
 
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.controller.response.LabelPageResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.LabelRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelDetailsVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.service.information.LabelPageInformation;
