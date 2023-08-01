@@ -50,7 +50,7 @@ public class StatRepository {
                 "(SELECT COUNT(*) FROM milestone WHERE is_deleted = FALSE) AS milestone_count, " +
                 "(SELECT COUNT(*) FROM label WHERE is_deleted = FALSE) AS label_count";
 
-        return template.queryForObject(sql, new MapSqlParameterSource(), statVORowMapper);
+        return template.queryForObject(sql, new MapSqlParameterSource(), countLabelStatsRowMapper());
     }
 
     public Map<Long, IssueByMilestoneVO> findIssuesCountByMilestoneIds(List<Long> milestoneIds) {
@@ -76,6 +76,14 @@ public class StatRepository {
             .milestoneCount((rs.getInt("milestone_count")))
             .labelCount(rs.getInt("label_count"))
             .build();
+
+    private final RowMapper<StatVO> countLabelStatsRowMapper() {
+        return ((rs, rowNum) -> StatVO.builder()
+                .milestoneCount(rs.getInt("milestone_count"))
+                .labelCount(rs.getInt("label_count"))
+                .build()
+        );
+    }
 
     private final RowMapper<MilestoneStatVO> milestoneStatVORowMapper() {
         return ((rs, rowNum) -> MilestoneStatVO.builder()
