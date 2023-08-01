@@ -1,6 +1,7 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.RepositoryTest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelDetailsVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelVO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,5 +31,17 @@ public class LabelRepositoryTest {
         assertThat(actual.get(0).getName()).isEqualTo("라벨 1");
         assertThat(actual.get(0).getBackgroundColor()).isEqualTo("#F08080");
         assertThat(actual.get(1).getTextColor()).isEqualTo("#000000");
+    }
+
+    @DisplayName("모든 라벨을 찾아 반환한다.")
+    @Test
+    void testFindAll() {
+
+        List<LabelDetailsVO> actual = repository.findAll();
+        assertThat(actual.size()).isEqualTo(3);
+        assertThat(actual.get(0).getName()).isEqualTo("라벨 1");
+        assertThat(actual.get(1).getName()).isEqualTo("라벨 2");
+        assertThat(actual.get(2).getName()).isEqualTo("라벨 3");
+
     }
 }
