@@ -26,7 +26,7 @@ public class LabelDetailsResponse {
 
     public static List<LabelDetailsResponse> from(List<LabelDetailsInformation> labelDetailsInformations) {
         return labelDetailsInformations.stream()
-                .map(labelDetailsInformation -> from(labelDetailsInformation))
+                .map(LabelDetailsResponse::from)
                 .collect(Collectors.toUnmodifiableList());
     }
 
