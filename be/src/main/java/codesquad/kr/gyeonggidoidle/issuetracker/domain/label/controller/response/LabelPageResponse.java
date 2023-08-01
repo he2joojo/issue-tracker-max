@@ -1,6 +1,7 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.label.controller.response;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.service.information.LabelPageInformation;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,6 +11,7 @@ public class LabelPageResponse {
 
     private final Integer milestoneCount;
     private final Integer labelCount;
+    @JsonProperty("labels")
     private final List<LabelDetailsResponse> labelDetailsResponses;
 
     @Builder
