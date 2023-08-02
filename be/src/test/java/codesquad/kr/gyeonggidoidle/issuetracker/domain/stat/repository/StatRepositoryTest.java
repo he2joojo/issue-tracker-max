@@ -6,6 +6,7 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.Milest
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.StatVO;
 import java.util.List;
 import java.util.Map;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.sql.DataSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @RepositoryTest
 public class StatRepositoryTest {
@@ -30,8 +32,8 @@ public class StatRepositoryTest {
     void getOverallStatsTest() {
         StatVO actual = repository.countOverallStats();
 
-        assertThat(actual.getLabelCount()).isEqualTo(3);
-        assertThat(actual.getMilestoneCount()).isEqualTo(3);
+        assertThat(actual.getLabelCount()).isEqualTo(4);
+        assertThat(actual.getMilestoneCount()).isEqualTo(4);
         assertThat(actual.getClosedIssueCount()).isEqualTo(3);
     }
 
@@ -40,7 +42,7 @@ public class StatRepositoryTest {
     void testCountMilestoneStats() {
         MilestoneStatVO actual = repository.countMilestoneStats();
 
-        assertThat(actual.getOpenMilestoneCount()).isEqualTo(2);
+        assertThat(actual.getOpenMilestoneCount()).isEqualTo(3);
         assertThat(actual.getCloseMilestoneCount()).isEqualTo(1);
     }
 
@@ -51,8 +53,8 @@ public class StatRepositoryTest {
 
         assertThat(actual.getOpenIssueCount()).isNull();
         assertThat(actual.getClosedIssueCount()).isNull();
-        assertThat(actual.getMilestoneCount()).isEqualTo(3);
-        assertThat(actual.getLabelCount()).isEqualTo(3);
+        assertThat(actual.getMilestoneCount()).isEqualTo(4);
+        assertThat(actual.getLabelCount()).isEqualTo(4);
     }
 
     @DisplayName("마일스톤 당 열린 이슈와 닫힌 이슈 개수를 반환한다.")
@@ -61,6 +63,13 @@ public class StatRepositoryTest {
         Map<Long, IssueByMilestoneVO> actual = repository.findIssuesCountByMilestoneIds(List.of(1L,2L,3L));
 
         assertThat(actual.size()).isEqualTo(3);
+
+        assertThrows(NullPointerException.class, ()->{
+            actual.get(0L).getOpenIssueCount();
+        });
+        assertThrows(NullPointerException.class, ()->{
+            actual.get(0L).getClosedIssueCount();
+        });
 
         assertThat(actual.get(1L).getOpenIssueCount()).isEqualTo(1);
         assertThat(actual.get(1L).getClosedIssueCount()).isEqualTo(2);

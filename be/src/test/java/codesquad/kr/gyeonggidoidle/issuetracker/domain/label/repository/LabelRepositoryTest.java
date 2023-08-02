@@ -33,15 +33,16 @@ public class LabelRepositoryTest {
         assertThat(actual.get(1).getTextColor()).isEqualTo("#000000");
     }
 
-    @DisplayName("모든 라벨을 찾아 반환한다.")
+    @DisplayName("모든 라벨을 찾아 이름 순으로 반환한다.")
     @Test
     void testFindAll() {
 
         List<LabelDetailsVO> actual = repository.findAll();
-        assertThat(actual.size()).isEqualTo(3);
-        assertThat(actual.get(0).getName()).isEqualTo("라벨 1");
-        assertThat(actual.get(1).getName()).isEqualTo("라벨 2");
-        assertThat(actual.get(2).getName()).isEqualTo("라벨 3");
+        assertThat(actual.size()).isEqualTo(4);
+        assertThat(actual.get(0).getName()).isEqualTo("라벨 0");
+        assertThat(actual.get(1).getName()).isEqualTo("라벨 1");
+        assertThat(actual.get(2).getName()).isEqualTo("라벨 2");
+        assertThat(actual.get(3).getName()).isEqualTo("라벨 3");
 
     }
 }

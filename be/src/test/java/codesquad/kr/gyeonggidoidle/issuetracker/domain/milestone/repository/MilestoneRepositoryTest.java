@@ -21,13 +21,14 @@ class MilestoneRepositoryTest {
         this.repository = new MilestoneRepository(dataSource);
     }
 
-    @DisplayName("열린 마일스톤을 가져온다.")
+    @DisplayName("열린 마일스톤을 이름 순으로 가져온다.")
     @Test
     void testFindOpenMilestones() {
         List<MilestoneDetailsVO> actual = repository.findOpenMilestones();
 
-        assertThat(actual.size()).isEqualTo(2);
-        assertThat(actual.get(0).getName()).isEqualTo("마일스톤 1");
-        assertThat(actual.get(1).getName()).isEqualTo("마일스톤 3");
+        assertThat(actual.size()).isEqualTo(3);
+        assertThat(actual.get(0).getName()).isEqualTo("마일스톤 0");
+        assertThat(actual.get(1).getName()).isEqualTo("마일스톤 1");
+        assertThat(actual.get(2).getName()).isEqualTo("마일스톤 3");
     }
 }
