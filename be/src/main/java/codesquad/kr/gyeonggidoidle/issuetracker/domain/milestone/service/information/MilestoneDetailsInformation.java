@@ -20,7 +20,7 @@ public class MilestoneDetailsInformation {
     private final Integer closedIssuesCount;
 
     @Builder
-    public MilestoneDetailsInformation(Long id, String name, String description, LocalDate dueDate,
+    private MilestoneDetailsInformation(Long id, String name, String description, LocalDate dueDate,
                                        Integer openIssueCount, Integer closedIssuesCount) {
         this.id = id;
         this.name = name;

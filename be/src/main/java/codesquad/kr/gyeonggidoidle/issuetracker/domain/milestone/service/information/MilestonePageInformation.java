@@ -17,7 +17,7 @@ public class MilestonePageInformation {
     private final List<MilestoneDetailsInformation> milestoneDetailsInformations;
 
     @Builder
-    public MilestonePageInformation(Integer openMilestoneCount, Integer closeMilestoneCount, Integer labelCount,
+    private MilestonePageInformation(Integer openMilestoneCount, Integer closeMilestoneCount, Integer labelCount,
                                     List<MilestoneDetailsInformation> milestoneDetailsInformations) {
         this.openMilestoneCount = openMilestoneCount;
         this.closeMilestoneCount = closeMilestoneCount;

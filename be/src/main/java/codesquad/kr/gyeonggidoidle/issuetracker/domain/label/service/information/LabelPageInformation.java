@@ -14,7 +14,7 @@ public class LabelPageInformation {
     private final List<LabelDetailsInformation> labelDetailsInformations;
 
     @Builder
-    public LabelPageInformation(Integer milestoneCount, Integer labelCount,
+    private LabelPageInformation(Integer milestoneCount, Integer labelCount,
                                 List<LabelDetailsInformation> labelDetailsInformations) {
         this.milestoneCount = milestoneCount;
         this.labelCount = labelCount;

@@ -10,7 +10,7 @@ public class IssueByMilestoneVO {
     private final Integer closedIssueCount;
 
     @Builder
-    public IssueByMilestoneVO(Integer openIssueCount, Integer closedIssueCount) {
+    private IssueByMilestoneVO(Integer openIssueCount, Integer closedIssueCount) {
         this.openIssueCount = openIssueCount;
         this.closedIssueCount = closedIssueCount;
     }
