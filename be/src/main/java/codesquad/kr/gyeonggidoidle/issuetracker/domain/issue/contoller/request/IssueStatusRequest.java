@@ -2,6 +2,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller.request;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.service.condition.IssueStatusCondition;
 import java.util.List;
+import lombok.Builder;
 import lombok.Getter;
 
 
@@ -12,6 +13,7 @@ public class IssueStatusRequest {
     private final List<Long> issues;
 
 
+    @Builder
     private IssueStatusRequest(boolean isOpen, List<Long> issues) {
         this.isOpen = isOpen;
         this.issues = issues;
