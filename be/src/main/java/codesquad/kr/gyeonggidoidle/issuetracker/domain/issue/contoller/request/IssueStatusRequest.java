@@ -23,7 +23,7 @@ public class IssueStatusRequest {
 
     public static IssueStatusCondition to(IssueStatusRequest request) {
         return IssueStatusCondition.builder()
-                .isOpen(request.open)
+                .open(request.open)
                 .issueIds(request.getIssues())
                 .build();
     }

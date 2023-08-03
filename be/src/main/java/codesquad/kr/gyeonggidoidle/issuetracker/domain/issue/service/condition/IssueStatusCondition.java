@@ -12,14 +12,14 @@ public class IssueStatusCondition {
     private final List<Long> issueIds;
 
     @Builder
-    private IssueStatusCondition(boolean isOpen, List<Long> issueIds) {
-        this.open = isOpen;
+    private IssueStatusCondition(boolean open, List<Long> issueIds) {
+        this.open = open;
         this.issueIds = issueIds;
     }
 
     public static IssueStatusVO to(IssueStatusCondition condition) {
         return IssueStatusVO.builder()
-                .isOpen(condition.isOpen())
+                .open(condition.isOpen())
                 .issueIds(condition.getIssueIds())
                 .build();
     }
