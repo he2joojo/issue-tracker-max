@@ -1,8 +1,10 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository;
 
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository.vo.IssueStatusVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository.vo.IssueVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -48,6 +50,15 @@ public class IssueRepository {
                 "ORDER BY i.id DESC";
 
         return template.query(sql, issueVOMapper);
+    }
+
+    public void updateIssuesStatus(IssueStatusVO vo) {
+        String sql = "UPDATE issue SET is_open = :is_open WHERE id IN (:issueIds)";
+
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("is_open", vo.isOpen())
+                .addValue("issueIds", vo.getIssueIds());
+        template.update(sql, params);
     }
 
     private final RowMapper<IssueVO> issueVOMapper = (rs, rowNum) -> IssueVO.builder()

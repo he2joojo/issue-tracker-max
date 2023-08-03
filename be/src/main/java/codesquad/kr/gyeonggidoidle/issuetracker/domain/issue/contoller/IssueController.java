@@ -1,9 +1,14 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller;
 
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller.request.IssueStatusRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller.response.ApiResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller.response.FilterResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.service.IssueService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -20,5 +25,11 @@ public class IssueController {
     @GetMapping("/api/issues/closed")
     public FilterResponse readCloseIssues() {
         return FilterResponse.from(issueService.readClosedIssues());
+    }
+
+    @PatchMapping("/api/issues")
+    public ApiResponse updateIssueStatus(@RequestBody IssueStatusRequest request) {
+        issueService.updateIssueStatus(IssueStatusRequest.to(request));
+        return ApiResponse.success(HttpStatus.OK);
     }
 }

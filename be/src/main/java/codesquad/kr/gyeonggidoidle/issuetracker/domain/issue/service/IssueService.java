@@ -2,6 +2,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.service;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository.IssueRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository.vo.IssueVO;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.service.condition.IssueStatusCondition;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.service.information.FilterInformation;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.LabelRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelVO;
@@ -42,6 +43,10 @@ public class IssueService {
         Map<Long, List<String>> assigneeProfiles = memberRepository.findAllProfilesByIssueIds(issueIds);
 
         return FilterInformation.from(statVO, issueVOs, labelVOs, assigneeProfiles);
+    }
+
+    public void updateIssueStatus(IssueStatusCondition condition) {
+        issueRepository.updateIssuesStatus(IssueStatusCondition.to(condition));
     }
 
     private List<Long> getIssueIds(List<IssueVO> issueVOs) {
