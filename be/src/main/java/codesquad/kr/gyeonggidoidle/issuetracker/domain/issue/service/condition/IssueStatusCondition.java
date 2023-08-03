@@ -8,18 +8,18 @@ import lombok.Getter;
 @Getter
 public class IssueStatusCondition {
 
-    private final boolean isOpen;
+    private final boolean open;
     private final List<Long> issueIds;
 
     @Builder
     private IssueStatusCondition(boolean isOpen, List<Long> issueIds) {
-        this.isOpen = isOpen;
+        this.open = isOpen;
         this.issueIds = issueIds;
     }
 
     public static IssueStatusVO to(IssueStatusCondition condition) {
         return IssueStatusVO.builder()
-                .isOpen(condition.isOpen)
+                .isOpen(condition.isOpen())
                 .issueIds(condition.getIssueIds())
                 .build();
     }

@@ -1,6 +1,7 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller.request;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.service.condition.IssueStatusCondition;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,19 +10,20 @@ import lombok.Getter;
 @Getter
 public class IssueStatusRequest {
 
-    private final boolean isOpen;
+    @JsonProperty("isOpen")
+    private final boolean open;
     private final List<Long> issues;
 
 
     @Builder
-    private IssueStatusRequest(boolean isOpen, List<Long> issues) {
-        this.isOpen = isOpen;
+    private IssueStatusRequest(boolean open, List<Long> issues) {
+        this.open = open;
         this.issues = issues;
     }
 
     public static IssueStatusCondition to(IssueStatusRequest request) {
         return IssueStatusCondition.builder()
-                .isOpen(request.isOpen)
+                .isOpen(request.open)
                 .issueIds(request.getIssues())
                 .build();
     }

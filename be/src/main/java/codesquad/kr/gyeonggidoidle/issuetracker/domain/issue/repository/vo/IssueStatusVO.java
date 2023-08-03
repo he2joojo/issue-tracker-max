@@ -7,12 +7,12 @@ import lombok.Getter;
 @Getter
 public class IssueStatusVO {
 
-    private final boolean isOpen;
+    private final boolean open;
     private final List<Long> issueIds;
 
     @Builder
-    private IssueStatusVO(boolean isOpen, List<Long> issueIds) {
-        this.isOpen = isOpen;
+    private IssueStatusVO(boolean open, List<Long> issueIds) {
+        this.open = open;
         this.issueIds = issueIds;
     }
 }
