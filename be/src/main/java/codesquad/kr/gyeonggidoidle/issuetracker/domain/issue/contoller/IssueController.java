@@ -1,5 +1,6 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller;
 
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller.request.IssueCreateRequest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller.request.IssueStatusRequest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller.response.ApiResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller.response.FilterResponse;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +32,12 @@ public class IssueController {
     @PatchMapping("/api/issues")
     public ApiResponse updateIssueStatus(@RequestBody IssueStatusRequest request) {
         issueService.updateIssueStatus(IssueStatusRequest.to(request));
+        return ApiResponse.success(HttpStatus.OK);
+    }
+
+    @PostMapping("/api/issues")
+    public ApiResponse create(@RequestBody IssueCreateRequest request) {
+        issueService.createIssue(IssueCreateRequest.to(request));
         return ApiResponse.success(HttpStatus.OK);
     }
 }

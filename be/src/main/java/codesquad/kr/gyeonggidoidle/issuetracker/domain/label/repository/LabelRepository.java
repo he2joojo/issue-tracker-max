@@ -50,6 +50,16 @@ public class LabelRepository {
         return template.query(sql, new MapSqlParameterSource(), labelDetailsVORowMapper());
     }
 
+    public void updateIssueLabels(Long issueId, List<Long> labelIds) {
+        String sql = "INSERT INTO issue_label (issue_id, label_id) VALUES ";
+        List<MapSqlParameterSource> batchParams = labelIds.stream()
+                        .map(labelId -> new MapSqlParameterSource()
+                                .addValue("issueId", issueId)
+                                .addValue("label_id", labelId))
+                        .collect(Collectors.toList());
+        template.batchUpdate(sql, batchParams.toArray(new MapSqlParameterSource[0]));
+    }
+
     private final RowMapper<LabelVO> labelRowMapper() {
         return ((rs, rowNum) -> LabelVO.builder()
                 .name(rs.getString("name"))
