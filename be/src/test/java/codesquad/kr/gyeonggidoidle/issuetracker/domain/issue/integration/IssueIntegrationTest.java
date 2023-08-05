@@ -60,9 +60,9 @@ public class IssueIntegrationTest {
                 .andDo(print());
     }
 
-    @DisplayName("선택한 이슈의 상태를 변경한다.")
+    @DisplayName("선택한 여러 개의 이슈 상태를 변경한다.")
     @Test
-    void testUpdateIssueStatusIntegrationTest() throws Exception {
+    void testUpdateIssuesStatusIntegrationTest() throws Exception {
 
         IssueStatusRequest request = IssueStatusRequest.builder()
                 .open(false)
@@ -81,6 +81,21 @@ public class IssueIntegrationTest {
     @Test
     void testDeleteIssue() throws Exception {
         ResultActions resultActions = mockMvc.perform(delete("/api/issues/1"));
+
+        resultActions.andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @DisplayName("선택한 하나의 이슈 상태를 변경한다.")
+    @Test
+    void testUpdateIssueStatus() throws Exception {
+        IssueStatusRequest request = IssueStatusRequest.builder()
+                .open(false)
+                .build();
+
+        ResultActions resultActions = mockMvc.perform(patch("/api/issues/2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(request)));
 
         resultActions.andExpect(status().isOk())
                 .andDo(print());
