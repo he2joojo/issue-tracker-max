@@ -69,6 +69,10 @@ public class IssueService {
         labelRepository.updateIssueLabels(createdId, condition.getLabels());
     }
 
+    public void deleteIssue(Long issueId) {
+        issueRepository.deleteIssue(issueId);
+    }
+
     private List<Long> getIssueIds(List<IssueVO> issueVOs) {
         return issueVOs.stream()
                 .map(IssueVO::getId)

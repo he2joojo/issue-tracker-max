@@ -64,7 +64,7 @@ public class IssueIntegrationTest {
     void testUpdateIssueStatusIntegrationTest() throws Exception {
 
         IssueStatusRequest request = IssueStatusRequest.builder()
-                .isOpen(false)
+                .open(false)
                 .issues(List.of(4L,5L))
                 .build();
 

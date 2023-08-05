@@ -3,6 +3,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.Issue;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository.vo.IssueStatusVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository.vo.IssueVO;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -74,6 +75,11 @@ public class IssueRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         template.update(sql, params, keyHolder, new String[]{"id"});
         return keyHolder.getKey().longValue();
+    }
+
+    public void deleteIssue(Long issueId) {
+        String sql = "UPDATE issue SET is_deleted = TRUE WHERE id = :issueId";
+        template.update(sql, Map.of("issueId", issueId));
     }
 
     private final RowMapper<IssueVO> issueVOMapper = (rs, rowNum) -> IssueVO.builder()
