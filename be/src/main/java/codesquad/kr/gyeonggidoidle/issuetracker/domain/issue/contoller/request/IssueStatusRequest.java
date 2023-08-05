@@ -23,8 +23,15 @@ public class IssueStatusRequest {
 
     public static IssueStatusCondition to(IssueStatusRequest request) {
         return IssueStatusCondition.builder()
-                .open(request.open)
+                .open(request.isOpen())
                 .issueIds(request.getIssues())
+                .build();
+    }
+
+    public static IssueStatusCondition to(Long issueId, IssueStatusRequest request) {
+        return IssueStatusCondition.builder()
+                .open(request.isOpen())
+                .issueIds(List.of(issueId))
                 .build();
     }
 }

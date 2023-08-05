@@ -32,8 +32,8 @@ public class IssueController {
     }
 
     @PatchMapping("/api/issues")
-    public ApiResponse updateIssueStatus(@RequestBody IssueStatusRequest request) {
-        issueService.updateIssueStatus(IssueStatusRequest.to(request));
+    public ApiResponse updateIssuesStatus(@RequestBody IssueStatusRequest request) {
+        issueService.updateIssuesStatus(IssueStatusRequest.to(request));
         return ApiResponse.success(HttpStatus.OK);
     }
 
@@ -46,6 +46,12 @@ public class IssueController {
     @DeleteMapping("/api/issues/{issueId}")
     public ApiResponse delete(@PathVariable Long issueId) {
         issueService.deleteIssue(issueId);
+        return ApiResponse.success(HttpStatus.OK);
+    }
+
+    @PatchMapping("/api/issues/{issueId}")
+    public ApiResponse updateIssueStatus(@PathVariable Long issueId, @RequestBody IssueStatusRequest request) {
+        issueService.updateIssuesStatus(IssueStatusRequest.to(issueId, request));
         return ApiResponse.success(HttpStatus.OK);
     }
 }

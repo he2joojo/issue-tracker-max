@@ -50,7 +50,7 @@ public class IssueService {
         return FilterInformation.from(statVO, issueVOs, labelVOs, assigneeProfiles);
     }
 
-    public void updateIssueStatus(IssueStatusCondition condition) {
+    public void updateIssuesStatus(IssueStatusCondition condition) {
         issueRepository.updateIssuesStatus(IssueStatusCondition.to(condition));
     }
 
