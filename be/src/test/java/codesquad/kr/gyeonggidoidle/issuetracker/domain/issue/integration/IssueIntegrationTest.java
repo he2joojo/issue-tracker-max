@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -71,6 +72,15 @@ public class IssueIntegrationTest {
         ResultActions resultActions = mockMvc.perform(patch("/api/issues")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(request)));
+
+        resultActions.andExpect(status().isOk())
+                .andDo(print());
+    }
+
+    @DisplayName("선택한 이슈를 삭제한다.")
+    @Test
+    void testDeleteIssue() throws Exception {
+        ResultActions resultActions = mockMvc.perform(delete("/api/issues/1"));
 
         resultActions.andExpect(status().isOk())
                 .andDo(print());
