@@ -7,6 +7,7 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository.IssueRep
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository.vo.IssueVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.service.condition.IssueCreateCondition;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.service.condition.IssueStatusCondition;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.service.condition.IssueUpdateCondition;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.service.information.FilterInformation;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.LabelRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelVO;
@@ -65,12 +66,18 @@ public class IssueService {
         if (comment.isContentsExist()) {
             commentRepository.createComment(fileId, comment);
         }
-        memberRepository.updateIssueAssignees(createdId, condition.getAssignees());
-        labelRepository.updateIssueLabels(createdId, condition.getLabels());
+        memberRepository.addIssueAssignees(createdId, condition.getAssignees());
+        labelRepository.addIssueLabels(createdId, condition.getLabels());
     }
 
     public void deleteIssue(Long issueId) {
         issueRepository.deleteIssue(issueId);
+    }
+
+    public void updateIssue(IssueUpdateCondition condition) {
+        issueRepository.updateIssue(IssueUpdateCondition.to(condition));
+        memberRepository.updateIssueAssignees(condition.getIssueId(), condition.getAssignees());
+        labelRepository.updateIssueLabels(condition.getIssueId(), condition.getLabels());
     }
 
     private List<Long> getIssueIds(List<IssueVO> issueVOs) {

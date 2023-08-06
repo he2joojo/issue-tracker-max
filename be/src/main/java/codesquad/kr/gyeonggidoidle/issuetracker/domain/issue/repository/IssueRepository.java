@@ -2,6 +2,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.Issue;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository.vo.IssueStatusVO;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository.vo.IssueUpdateVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.repository.vo.IssueVO;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +81,17 @@ public class IssueRepository {
     public void deleteIssue(Long issueId) {
         String sql = "UPDATE issue SET is_deleted = TRUE WHERE id = :issueId";
         template.update(sql, Map.of("issueId", issueId));
+    }
+
+    public void updateIssue(IssueUpdateVO vo) {
+        String sql = "UPDATE issue SET title = :title, milestone_id = :milestone_id " +
+                "WHERE id = :issueId";
+
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("title", vo.getTitle())
+                .addValue("milestone_id", vo.getMilestoneId())
+                .addValue("issueId", vo.getIssueId());
+        template.update(sql, params);
     }
 
     private final RowMapper<IssueVO> issueVOMapper = (rs, rowNum) -> IssueVO.builder()

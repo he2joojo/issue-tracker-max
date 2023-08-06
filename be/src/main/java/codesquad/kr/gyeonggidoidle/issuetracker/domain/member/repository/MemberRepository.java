@@ -37,7 +37,7 @@ public class MemberRepository {
         return template.queryForList(sql, Map.of("issueId", issueId), String.class);
     }
 
-    public void updateIssueAssignees(Long issueId, List<Long> assigneeIds) {
+    public void addIssueAssignees(Long issueId, List<Long> assigneeIds) {
         String sql = "INSERT INTO issue_assignee (issue_id, assignee_id) VALUES ";
         List<MapSqlParameterSource> batchParams = assigneeIds.stream()
                 .map(assignId -> new MapSqlParameterSource()
@@ -45,5 +45,11 @@ public class MemberRepository {
                         .addValue("assignee_id", assignId))
                 .collect(Collectors.toList());
         template.batchUpdate(sql, batchParams.toArray(new MapSqlParameterSource[0]));
+    }
+
+    public void updateIssueAssignees(Long issueId, List<Long> assigneeIds) {
+        String sql = "DELETE FROM issue_assignee WHERE issue_id = :issueId";
+        template.update(sql, Map.of("issueId", issueId));
+        addIssueAssignees(issueId, assigneeIds);
     }
 }
