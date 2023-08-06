@@ -76,8 +76,12 @@ public class IssueService {
 
     public void updateIssue(IssueUpdateCondition condition) {
         issueRepository.updateIssue(IssueUpdateCondition.to(condition));
-        memberRepository.updateIssueAssignees(condition.getIssueId(), condition.getAssignees());
-        labelRepository.updateIssueLabels(condition.getIssueId(), condition.getLabels());
+        if (!condition.getAssignees().isEmpty()) {
+            memberRepository.updateIssueAssignees(condition.getIssueId(), condition.getAssignees());
+        }
+        if (!condition.getLabels().isEmpty()) {
+            labelRepository.updateIssueLabels(condition.getIssueId(), condition.getLabels());
+        }
     }
 
     private List<Long> getIssueIds(List<IssueVO> issueVOs) {
