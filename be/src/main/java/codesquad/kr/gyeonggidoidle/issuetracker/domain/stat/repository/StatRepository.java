@@ -62,10 +62,10 @@ public class StatRepository {
 
     public IssueByMilestoneVO findIssuesCountByMilestoneId(Long milestoneId) {
         String sql = "SELECT " +
-                "(SELECT COUNT(*) FROM milestone AS m LEFT JOIN issue AS i ON m.id = i.milestone_id " +
-                "WHERE (i.is_open = TRUE AND i.is_deleted = FALSE AND m.id = :milestoneId)) AS open_issue_count, " +
-                "(SELECT COUNT(*) FROM milestone AS m LEFT JOIN issue AS i ON m.id = i.milestone_id " +
-                "WHERE (i.is_open = FALSE AND i.is_deleted = FALSE AND m.id = :milestoneId)) AS closed_issue_count";
+                "(SELECT COUNT(*) FROM milestone LEFT JOIN issue ON milestone.id = issue.milestone_id " +
+                "WHERE (issue.is_open = TRUE AND issue.is_deleted = FALSE AND milestone.id = :milestoneId)) AS open_issue_count, " +
+                "(SELECT COUNT(*) FROM milestone LEFT JOIN issue ON milestone.id = issue.milestone_id " +
+                "WHERE (issue.is_open = FALSE AND issue.is_deleted = FALSE AND milestone.id = :milestoneId)) AS closed_issue_count";
 
         return template.queryForObject(sql, Map.of("milestoneId", milestoneId), issueByMilestoneVORowMapper());
     }

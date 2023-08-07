@@ -32,12 +32,12 @@ public class LabelRepository {
     }
 
     public List<LabelVO> findAllByIssueId(Long issueId) {
-        String sql = "SELECT l.name, l.background_color, l.text_color " +
-                "FROM issue_label AS i " +
-                "LEFT JOIN label AS l " +
-                "ON l.id = i.label_id " +
-                "WHERE i.issue_id = :issueId " +
-                "AND l.is_deleted = FALSE";
+        String sql = "SELECT label.name, label.background_color, label.text_color " +
+                "FROM issue_label " +
+                "LEFT JOIN label " +
+                "ON label.id = issue_label.label_id " +
+                "WHERE issue_label.issue_id = :issueId " +
+                "AND label.is_deleted = FALSE";
 
         return template.query(sql, Map.of("issueId", issueId), labelRowMapper());
     }
