@@ -6,6 +6,7 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.Re
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.SignUpRequest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response.JwtResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.JwtService;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,8 +37,8 @@ public class JwtController {
     }
 
     @PostMapping("/api/logout")
-    public ApiResponse logout(@RequestBody RefreshTokenRequest request) {
-        jwtService.logout(request.getRefreshToken());
+    public ApiResponse logout(HttpServletRequest request) {
+        jwtService.logout(Long.valueOf((String) request.getAttribute("memberId")));
         return ApiResponse.success(HttpStatus.OK);
     }
 }

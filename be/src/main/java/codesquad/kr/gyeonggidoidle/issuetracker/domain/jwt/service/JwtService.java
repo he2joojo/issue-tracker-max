@@ -52,8 +52,8 @@ public class JwtService {
         return jwtProvider.reissueAccessToken(generateMemberClaims(member), refreshToken);
     }
 
-    public void logout(String refreshToken) {
-        if (!jwtRepository.deleteRefreshToken(refreshToken)) {
+    public void logout(Long memberId) {
+        if (!jwtRepository.deleteRefreshToken(memberId)) {
             throw new IllegalJwtTokenException(JwtTokenType.REFRESH);
         }
     }
