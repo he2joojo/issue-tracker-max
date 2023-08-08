@@ -35,6 +35,12 @@ public class JwtRepository {
         template.update(sql, Map.of("refreshToken", refreshToken, "memberId", memberId));
     }
 
+    public boolean deleteRefreshToken(String refreshToken) {
+        String sql = "DELETE FROM refresh_token WHERE refresh_token = :refreshToken";
+        int result = template.update(sql, Map.of("refresh_token", refreshToken));
+        return result > 0;
+    }
+
     private final RowMapper<Member> memberRowMapper() {
         return ((rs, rowNum) -> Member.builder()
                 .id(rs.getLong("id"))

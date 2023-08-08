@@ -1,12 +1,14 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller;
 
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.contoller.response.ApiResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.LoginRequest;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.ReissueTokenRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.RefreshTokenRequest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.SignUpRequest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response.JwtResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.JwtService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,12 +25,19 @@ public class JwtController {
     }
 
     @PostMapping("/api/signup")
-    public void signUp(@RequestBody @Valid SignUpRequest request) {
+    public ApiResponse signUp(@RequestBody @Valid SignUpRequest request) {
         jwtService.signUp(SignUpRequest.to(request));
+        return ApiResponse.success(HttpStatus.OK);
     }
 
     @PostMapping("/api/auth/reissue")
-    public JwtResponse reissueAccessToken(@RequestBody ReissueTokenRequest request) {
+    public JwtResponse reissueAccessToken(@RequestBody RefreshTokenRequest request) {
         return JwtResponse.from(jwtService.reissueAccessToken(request.getRefreshToken()));
+    }
+
+    @PostMapping("/api/logout")
+    public ApiResponse logout(@RequestBody RefreshTokenRequest request) {
+        jwtService.logout(request.getRefreshToken());
+        return ApiResponse.success(HttpStatus.OK);
     }
 }

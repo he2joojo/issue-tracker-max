@@ -34,6 +34,7 @@ public class JwtService {
         return jwt;
     }
 
+    @Transactional
     public void signUp(SignUpCondition condition) {
         String email = condition.getEmail();
         if (existMember(memberRepository.findBy(email))) {
@@ -49,6 +50,12 @@ public class JwtService {
             throw new IllegalJwtTokenException(JwtTokenType.REFRESH);
         }
         return jwtProvider.reissueAccessToken(generateMemberClaims(member), refreshToken);
+    }
+
+    public void logout(String refreshToken) {
+        if (!jwtRepository.deleteRefreshToken(refreshToken)) {
+            throw new IllegalJwtTokenException(JwtTokenType.REFRESH);
+        }
     }
 
     private Map<String, Object> generateMemberClaims(Member member) {
