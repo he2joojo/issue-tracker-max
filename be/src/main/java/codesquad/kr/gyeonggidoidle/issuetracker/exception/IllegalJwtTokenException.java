@@ -5,11 +5,11 @@ import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
 @Getter
-public class IllegalJwtTokenException extends RuntimeException {
+public class IllegalJwtTokenException extends CustomException {
 
     private static final HttpStatus httpStatus = HttpStatus.UNAUTHORIZED;
 
     public IllegalJwtTokenException(JwtTokenType tokenType) {
-        super("[Token 인증 오류]: 잘못된 " + tokenType.name() + " 토큰 입니다.");
+        super(httpStatus, "[Token 인증 오류]: 잘못된 " + tokenType.name() + " 토큰 입니다.");
     }
 }
