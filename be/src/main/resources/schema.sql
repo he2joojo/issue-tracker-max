@@ -86,6 +86,13 @@ CREATE TABLE comment
     PRIMARY KEY (id)
 );
 
+CREATE TABLE refresh_token
+(
+    id               bigint AUTO_INCREMENT,
+    refresh_token    varchar(2000),
+    member_id        bigint
+)
+
 ALTER TABLE issue
     ADD CONSTRAINT fk_issue_author_id FOREIGN KEY (author_id) REFERENCES member (id);
 
@@ -112,3 +119,6 @@ ALTER TABLE issue_assignee
 
 ALTER TABLE issue_assignee
     ADD CONSTRAINT fk_issue_assignee_assignee_id FOREIGN KEY (assignee_id) REFERENCES member (id);
+
+ALTER TABLE refresh_token
+    ADD CONSTRAINT fk_refresh_token_member_id FOREIGN KEY (member_id) REFERENCES member (id);
