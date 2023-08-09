@@ -69,6 +69,18 @@ public class LabelRepository {
         }
     }
 
+    public boolean update(Label label) {
+        String sql = "UPDATE label SET name = :name, description = :description, background_color = :backgroundColor, text_color = :textColor " +
+                "WHERE id = :labelId";
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("labelId", label.getId())
+                .addValue("name", label.getName())
+                .addValue("description", label.getDescription())
+                .addValue("backgroundColor", label.getBackgroundColor())
+                .addValue("textColor", label.getTextColor());
+        return template.update(sql, params) > 0;
+    }
+
     private final RowMapper<LabelVO> labelRowMapper() {
         return ((rs, rowNum) -> LabelVO.builder()
                 .name(rs.getString("name"))
