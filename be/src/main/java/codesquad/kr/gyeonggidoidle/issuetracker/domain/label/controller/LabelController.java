@@ -7,6 +7,7 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.controller.response
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.service.LabelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +40,12 @@ public class LabelController {
     @PatchMapping("/api/labels/{labelId}")
     public ApiResponse update(@PathVariable Long labelId, @RequestBody LabelRequest request) {
         labelService.update(LabelRequest.to(labelId, request));
+        return ApiResponse.success(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/labels/{labelId}")
+    public ApiResponse delete(@PathVariable Long labelId) {
+        labelService.delete(labelId);
         return ApiResponse.success(HttpStatus.OK);
     }
 }

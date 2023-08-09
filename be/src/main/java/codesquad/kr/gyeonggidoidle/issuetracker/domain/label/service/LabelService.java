@@ -36,4 +36,8 @@ public class LabelService {
     public boolean update(LabelUpdateCondition condition) {
         return labelRepository.update(LabelUpdateCondition.to(condition));
     }
+
+    public boolean delete(Long labelId) {
+        return labelRepository.delete(labelId);
+    }
 }

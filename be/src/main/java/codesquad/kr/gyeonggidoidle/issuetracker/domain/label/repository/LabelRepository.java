@@ -81,6 +81,11 @@ public class LabelRepository {
         return template.update(sql, params) > 0;
     }
 
+    public boolean delete(Long labelId) {
+        String sql = "UPDATE label SET is_deleted = TRUE WHERE id = :labelId";
+        return template.update(sql, Map.of("labelId", labelId)) > 0;
+    }
+
     private final RowMapper<LabelVO> labelRowMapper() {
         return ((rs, rowNum) -> LabelVO.builder()
                 .name(rs.getString("name"))
