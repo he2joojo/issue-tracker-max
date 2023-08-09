@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 @IntegrationTest
 public class LabelIntegrationTest {
@@ -100,6 +101,19 @@ public class LabelIntegrationTest {
                 .andExpect(jsonPath("$.statusCode").value(200))
                 .andDo(print());
     }
+
+    @DisplayName("라벨 아이디를 받아 라벨을 삭제한다.")
+    @Test
+    void delete() throws Exception {
+        // when
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.delete("/api/labels/3"));
+
+        // then
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusCode").value(200))
+                .andDo(print());
+    }
+
 
     private <T> String toJson(T data) throws JsonProcessingException {
         return objectMapper.writeValueAsString(data);
