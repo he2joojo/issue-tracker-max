@@ -3,17 +3,15 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.Label;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelDetailsVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelVO;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import javax.sql.DataSource;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Repository
@@ -58,6 +56,17 @@ public class LabelRepository {
                 .addValue("textColor", label.getTextColor());
         int result = template.update(sql, params);
         return result > 0;
+    }
+
+    public LabelDetailsVO findById(Long labelId) {
+        String sql = "SELECT id, name, description, background_color, text_color " +
+                "FROM label " +
+                "WHERE id = :labelId ";
+        try {
+            return template.queryForObject(sql, Map.of("labelId", labelId), labelDetailsVORowMapper());
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
     private final RowMapper<LabelVO> labelRowMapper() {
