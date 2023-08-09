@@ -42,7 +42,7 @@ public class MemberRepository {
         return template.query(sql, new MapSqlParameterSource(), memberDetailsVORowMapper());
     }
 
-    public Member findBy(String email) {
+    public Member findByEmail(String email) {
         String sql = "SELECT id, email, name, password, profile FROM member WHERE email = :email";
         try {
             return template.queryForObject(sql, Map.of("email", email), memberRowMapper());

@@ -28,7 +28,7 @@ public class JwtService {
     private final JwtProvider jwtProvider;
 
     public Jwt login(LoginCondition condition) {
-        Member member = memberRepository.findBy(condition.getEmail());
+        Member member = memberRepository.findByEmail(condition.getEmail());
         if (!verifyPassword(member, condition.getPassword())) {
             throw new IllegalPasswordException();
         }
@@ -40,7 +40,7 @@ public class JwtService {
     @Transactional
     public void signUp(SignUpCondition condition) {
         String email = condition.getEmail();
-        if (existMember(memberRepository.findBy(email))) {
+        if (existMember(memberRepository.findByEmail(email))) {
             throw new MemberDuplicationException(email);
         }
         memberRepository.saveMember(SignUpCondition.to(condition));

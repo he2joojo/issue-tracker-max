@@ -1,8 +1,10 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.member.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.RepositoryTest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.Member;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.MemberRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.vo.MemberDetailsVO;
 import java.util.List;
@@ -40,5 +42,19 @@ public class MemberRepositoryTest {
         assertThat(actual.get(0).getName()).isEqualTo("ati");
         assertThat(actual.get(1).getName()).isEqualTo("joy");
         assertThat(actual.get(2).getName()).isEqualTo("nag");
+    }
+
+    @DisplayName("이메일로 해당 멤버를 찾는다.")
+    @Test
+    void findByEmail() {
+        // when
+        Member actual = repository.findByEmail("joy@codesquad.kr");
+
+        // then
+        assertSoftly(assertions -> {
+            assertions.assertThat(actual.getId()).isEqualTo(2);
+            assertions.assertThat(actual.getName()).isEqualTo("joy");
+            assertions.assertThat(actual.getPassword()).isEqualTo("1q2w3e4r!");
+        });
     }
 }
