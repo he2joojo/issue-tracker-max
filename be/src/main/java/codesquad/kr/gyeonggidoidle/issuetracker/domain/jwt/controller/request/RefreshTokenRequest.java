@@ -1,15 +1,17 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class RefreshTokenRequest {
 
-    private final String refreshToken;
+    private String refreshToken;
 
-    @Builder
-    private RefreshTokenRequest(String refreshToken) {
+    public RefreshTokenRequest(String refreshToken) {
         this.refreshToken = refreshToken;
     }
+
+    public RefreshTokenRequest(){}
 }

@@ -4,6 +4,7 @@ DROP Table if exists issue_label;
 DROP Table if exists issue;
 DROP Table if exists label;
 DROP Table if exists milestone;
+DROP Table if exists refresh_token;
 DROP Table if exists member;
 DROP Table if exists file;
 
@@ -90,8 +91,9 @@ CREATE TABLE refresh_token
 (
     id               bigint AUTO_INCREMENT,
     refresh_token    varchar(2000),
-    member_id        bigint
-)
+    member_id        bigint,
+    PRIMARY KEY (id)
+);
 
 ALTER TABLE issue
     ADD CONSTRAINT fk_issue_author_id FOREIGN KEY (author_id) REFERENCES member (id);

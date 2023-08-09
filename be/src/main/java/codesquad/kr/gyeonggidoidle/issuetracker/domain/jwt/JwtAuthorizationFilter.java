@@ -56,6 +56,11 @@ public class JwtAuthorizationFilter implements Filter {
 
     }
 
+    public static String getToken(HttpServletRequest request) {
+        String authorization = request.getHeader("Authorization");
+        return authorization.substring(7).replace("\"","");
+    }
+
     private boolean whiteListCheck(String uri) {
         return PatternMatchUtils.simpleMatch(whiteListUris, uri);
     }
@@ -63,11 +68,6 @@ public class JwtAuthorizationFilter implements Filter {
     private boolean isContainToken(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
         return authorization != null && authorization.startsWith("Bearer ");
-    }
-
-    private String getToken(HttpServletRequest request) {
-        String authorization = request.getHeader("Authorization");
-        return authorization.substring(7).replace("\"","");
     }
 
     private void sendErrorApiResponse(ServletResponse response, RuntimeException e) throws IOException {

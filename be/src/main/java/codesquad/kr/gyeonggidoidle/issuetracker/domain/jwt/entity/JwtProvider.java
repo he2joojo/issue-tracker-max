@@ -12,7 +12,7 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtProvider {
 
-    private static final byte[] secret = "codesquad-issue-tracker-01".getBytes();
+    private static final byte[] secret = "codesquad-issue-tracker-max-01-gyeonggidoidle".getBytes();
     private final Key key = Keys.hmacShaKeyFor(secret);
 
     public String createToken(Map<String, Object> claims, Date expireDate) {

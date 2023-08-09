@@ -2,19 +2,17 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.Member;
 import java.util.Map;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+@RequiredArgsConstructor
 @Repository
 public class JwtRepository {
 
     private final NamedParameterJdbcTemplate template;
-
-    public JwtRepository(NamedParameterJdbcTemplate template) {
-        this.template = template;
-    }
 
     public Member findByRefreshToken(String refreshToken) {
         String sql = "SELECT member.id, member.email, member.name, member.password, member.profile "
@@ -37,7 +35,7 @@ public class JwtRepository {
 
     public boolean deleteRefreshToken(Long memberId) {
         String sql = "DELETE FROM refresh_token WHERE member_id = :memberId";
-        int result = template.update(sql, Map.of("member_id", memberId));
+        int result = template.update(sql, Map.of("memberId", memberId));
         return result > 0;
     }
 
