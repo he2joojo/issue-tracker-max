@@ -1,6 +1,7 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.RepositoryTest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.Label;
@@ -60,5 +61,20 @@ public class LabelRepositoryTest {
         boolean actual = repository.save(label);
         // then
         assertThat(actual).isTrue();
+    }
+
+    @DisplayName("라벨id를 입력받아 라벨을 반환한다.")
+    @Test
+    void findById() {
+        // when
+        LabelDetailsVO actual = repository.findById(1L);
+
+        // then
+        assertSoftly(assertions -> {
+            assertions.assertThat(actual.getId()).isEqualTo(1L);
+            assertions.assertThat(actual.getName()).isEqualTo("라벨 1");
+            assertions.assertThat(actual.getDescription()).isEqualTo(null);
+            assertions.assertThat(actual.getBackgroundColor()).isEqualTo("#F08080");
+        });
     }
 }
