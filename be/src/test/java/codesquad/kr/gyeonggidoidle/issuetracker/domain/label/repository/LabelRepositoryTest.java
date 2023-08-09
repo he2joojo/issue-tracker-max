@@ -94,4 +94,13 @@ public class LabelRepositoryTest {
         // then
         assertThat(actual).isTrue();
     }
+
+    @DisplayName("라벨 아이디를 받아 is_deleted를 true로 바꾸고 성공하면 true를 반환한다")
+    @Test
+    void delete() {
+        // when
+        boolean actual = repository.delete(2L);
+        // then
+        assertThat(actual).isTrue();
+    }
 }
