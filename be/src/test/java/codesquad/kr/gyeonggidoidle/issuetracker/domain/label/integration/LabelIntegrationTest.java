@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.IntegrationTest;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.controller.request.LabelCreateRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.controller.request.LabelRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -44,7 +44,7 @@ public class LabelIntegrationTest {
     @Test
     void create() throws Exception {
         // given
-        LabelCreateRequest request = LabelCreateRequest.builder()
+        LabelRequest request = LabelRequest.builder()
                 .name("label1")
                 .description("설명")
                 .backgroundColor("##")
@@ -60,6 +60,22 @@ public class LabelIntegrationTest {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.statusCode").value(200))
                 .andDo(print());
+    }
+
+    @DisplayName("하나의 라벨 정보를 가져온다.")
+    @Test
+    void read() throws Exception {
+        // when
+        ResultActions resultActions = mockMvc.perform(get("/api/labels/1"));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpectAll(
+                        jsonPath("$.id").value(1L),
+                        jsonPath("$.name").value("라벨 1"),
+                        jsonPath("$.description").doesNotExist()
+                );
     }
 
     private <T> String toJson(T data) throws JsonProcessingException {
