@@ -1,6 +1,5 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service;
 
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.JwtAuthorizationFilter;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response.JwtTokenType;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.Jwt;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
@@ -12,9 +11,7 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.MemberR
 import codesquad.kr.gyeonggidoidle.issuetracker.exception.IllegalJwtTokenException;
 import codesquad.kr.gyeonggidoidle.issuetracker.exception.IllegalPasswordException;
 import codesquad.kr.gyeonggidoidle.issuetracker.exception.MemberDuplicationException;
-import io.jsonwebtoken.Claims;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,10 +52,7 @@ public class JwtService {
         return jwtProvider.reissueAccessToken(generateMemberClaims(member), refreshToken);
     }
 
-    public void logout(HttpServletRequest request) {
-        String token = JwtAuthorizationFilter.getToken(request);
-        Claims claims = jwtProvider.getClaims(token);
-        Long memberId = Long.parseLong(claims.get("memberId").toString());
+    public void logout(Long memberId ) {
         if (!jwtRepository.deleteRefreshToken(memberId)) {
             throw new IllegalJwtTokenException(JwtTokenType.REFRESH);
         }

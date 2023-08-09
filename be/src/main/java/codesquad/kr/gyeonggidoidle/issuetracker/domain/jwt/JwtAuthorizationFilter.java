@@ -56,7 +56,7 @@ public class JwtAuthorizationFilter implements Filter {
 
     }
 
-    public static String getToken(HttpServletRequest request) {
+    private String getToken(HttpServletRequest request) {
         String authorization = request.getHeader("Authorization");
         return authorization.substring(7).replace("\"","");
     }

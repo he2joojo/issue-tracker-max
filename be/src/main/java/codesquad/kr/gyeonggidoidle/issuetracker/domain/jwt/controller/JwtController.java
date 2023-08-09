@@ -38,13 +38,7 @@ public class JwtController {
 
     @PostMapping("/api/logout")
     public ApiResponse logout(HttpServletRequest request) {
-        jwtService.logout(request);
+        jwtService.logout(Long.parseLong(String.valueOf(request.getAttribute("memberId"))));
         return ApiResponse.success(HttpStatus.OK);
     }
-
-//    @PostMapping("/api/logout")
-//    public ApiResponse logout(HttpServletRequest request) {
-//        jwtService.logout(Long.parseLong(String.valueOf(request.getAttribute("memberId"))));
-//        return ApiResponse.success(HttpStatus.OK);
-//    }
 }
