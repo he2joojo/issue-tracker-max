@@ -1,21 +1,18 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.RepositoryTest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.IssueByMilestoneVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.MilestoneStatVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.StatVO;
 import java.util.List;
 import java.util.Map;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-
-import javax.sql.DataSource;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 @RepositoryTest
 public class StatRepositoryTest {
@@ -23,8 +20,8 @@ public class StatRepositoryTest {
     private StatRepository repository;
 
     @Autowired
-    public StatRepositoryTest(DataSource dataSource) {
-        this.repository = new StatRepository(dataSource);
+    public StatRepositoryTest(NamedParameterJdbcTemplate template) {
+        this.repository = new StatRepository(template);
     }
 
     @DisplayName("전체적인 통계 정보를 가져온다.")

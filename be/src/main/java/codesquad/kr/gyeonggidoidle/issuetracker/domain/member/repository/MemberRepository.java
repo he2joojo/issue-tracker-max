@@ -2,27 +2,21 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.Member;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.vo.MemberDetailsVO;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
+@RequiredArgsConstructor
 @Repository
 public class MemberRepository {
 
     private final NamedParameterJdbcTemplate template;
-
-    @Autowired
-    public MemberRepository(DataSource dataSource) {
-        this.template = new NamedParameterJdbcTemplate(dataSource);
-    }
 
     public Map<Long, List<String>> findAllProfilesByIssueIds(List<Long> issueIds ) {
         return issueIds.stream()

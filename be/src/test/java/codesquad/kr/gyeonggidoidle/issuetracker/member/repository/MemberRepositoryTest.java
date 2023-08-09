@@ -1,16 +1,15 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.member.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.RepositoryTest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.MemberRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.vo.MemberDetailsVO;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import javax.sql.DataSource;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 @RepositoryTest
 public class MemberRepositoryTest {
@@ -18,8 +17,8 @@ public class MemberRepositoryTest {
     private MemberRepository repository;
 
     @Autowired
-    public MemberRepositoryTest(DataSource dataSource) {
-        this.repository = new MemberRepository(dataSource);
+    public MemberRepositoryTest(NamedParameterJdbcTemplate template) {
+        this.repository = new MemberRepository(template);
     }
 
     @DisplayName("이슈아이디로 해당 이슈의 모든 할당자의 프로필을 가지고 온다.")

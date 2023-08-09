@@ -6,24 +6,18 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.StatVO
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
-
+@RequiredArgsConstructor
 @Repository
 public class StatRepository {
 
     private final NamedParameterJdbcTemplate template;
-
-    @Autowired
-    public StatRepository(DataSource dataSource) {
-        this.template = new NamedParameterJdbcTemplate(dataSource);
-    }
 
     public StatVO countOverallStats() {
         String sql = "SELECT " +
