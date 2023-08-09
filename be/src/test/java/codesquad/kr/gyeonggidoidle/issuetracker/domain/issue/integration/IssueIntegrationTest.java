@@ -1,16 +1,19 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.integration;
 
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.IntegrationTest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.Jwt;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @IntegrationTest
 public class IssueIntegrationTest {
@@ -18,10 +21,15 @@ public class IssueIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private JwtProvider jwtProvider;
+
     @DisplayName("열린 이슈의 모든 정보를 다 가지고 온다.")
     @Test
     void openIssueIntegrationTest() throws Exception {
-        ResultActions resultActions = mockMvc.perform(get("/api/issues/open"));
+        Jwt jwt = makeToken();
+        ResultActions resultActions = mockMvc.perform(get("/api/issues/open")
+                .header("Authorization", "Bearer " + jwt.getAccessToken()));
 
         resultActions
                 .andExpect(status().isOk())
@@ -37,7 +45,9 @@ public class IssueIntegrationTest {
     @DisplayName("닫힌 이슈의 모든 정보를 다 가지고 온다.")
     @Test
     void closedIssueIntegrationTest() throws Exception {
-        ResultActions resultActions = mockMvc.perform(get("/api/issues/closed"));
+        Jwt jwt = makeToken();
+        ResultActions resultActions = mockMvc.perform(get("/api/issues/closed")
+                .header("Authorization", "Bearer " + jwt.getAccessToken()));
 
         resultActions
                 .andExpect(status().isOk())
@@ -53,7 +63,9 @@ public class IssueIntegrationTest {
     @DisplayName("메인 화면의 필터 목록을 가지고 온다.")
     @Test
     void testReadFilters() throws Exception {
-        ResultActions resultActions = mockMvc.perform(get("/api/filters"));
+        Jwt jwt = makeToken();
+        ResultActions resultActions = mockMvc.perform(get("/api/filters")
+                .header("Authorization", "Bearer " + jwt.getAccessToken()));
 
         resultActions
                 .andExpect(status().isOk())
@@ -68,7 +80,9 @@ public class IssueIntegrationTest {
     @DisplayName("이슈 화면의 필터 목록을 가지고 온다.")
     @Test
     void testReadFiltersByIssue() throws Exception {
-        ResultActions resultActions = mockMvc.perform(get("/api/issues"));
+        Jwt jwt = makeToken();
+        ResultActions resultActions = mockMvc.perform(get("/api/issues")
+                .header("Authorization", "Bearer " + jwt.getAccessToken()));
 
         resultActions
                 .andExpect(status().isOk())
@@ -81,5 +95,9 @@ public class IssueIntegrationTest {
                 .andExpect(jsonPath("$.milestones.[1].openIssueCount").value(1))
                 .andExpect(jsonPath("$.milestones.[1].closedIssueCount").value(2))
                 .andDo(print());
+    }
+
+    private Jwt makeToken() {
+        return jwtProvider.createJwt(Map.of("memberId",1L));
     }
 }
