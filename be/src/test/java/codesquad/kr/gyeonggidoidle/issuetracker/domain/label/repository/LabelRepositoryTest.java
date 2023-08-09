@@ -47,7 +47,7 @@ public class LabelRepositoryTest {
 
     }
 
-    @DisplayName("Label을 받아서 db에 저장한다.")
+    @DisplayName("Label을 받아서 db에 저장하고 성공하면 true를 반환한다.")
     @Test
     void save() {
         // given
@@ -76,5 +76,22 @@ public class LabelRepositoryTest {
             assertions.assertThat(actual.getDescription()).isEqualTo(null);
             assertions.assertThat(actual.getBackgroundColor()).isEqualTo("#F08080");
         });
+    }
+
+    @DisplayName("라벨 내용을 수정하고 성공하면 true를 반환한다.")
+    @Test
+    void update() {
+        // given
+        Label label = Label.builder()
+                .id(1L)
+                .name("update title")
+                .description("tmp")
+                .backgroundColor("##")
+                .textColor("##")
+                .build();
+        // when
+        boolean actual = repository.update(label);
+        // then
+        assertThat(actual).isTrue();
     }
 }
