@@ -1,27 +1,35 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.integration;
 
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.IntegrationTest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.Jwt;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.controller.request.MilestoneCreateRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.LocalDate;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @IntegrationTest
 class MilestoneIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private JwtProvider jwtProvider;
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @DisplayName("열린 마일스톤의 모드 정보를 가지고 온다.")
     @Test
@@ -63,7 +71,34 @@ class MilestoneIntegrationTest {
                 );
     }
 
+    @DisplayName("마일스톤을 받아 저장한다.")
+    @Test
+    void create() throws Exception {
+        // given
+        MilestoneCreateRequest request = MilestoneCreateRequest.builder()
+                .name("name")
+                .description("설명")
+                .dueDate(LocalDate.now())
+                .build();
+
+        // when
+        Jwt jwt = makeToken();
+        ResultActions resultActions = mockMvc.perform(post("/api/milestones")
+                .header("Authorization", "Bearer " + jwt.getAccessToken())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(request)));
+
+        // then
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusCode").value(200))
+                .andDo(print());
+    }
+
     private Jwt makeToken() {
         return jwtProvider.createJwt(Map.of("memberId",1L));
+    }
+
+    private <T> String toJson(T data) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(data);
     }
 }
