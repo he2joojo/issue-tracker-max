@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -87,6 +88,17 @@ public class LabelRepository {
                 .addValue("textColor", label.getTextColor());
         int result = template.update(sql, params);
         return result > 0;
+    }
+
+    public LabelDetailsVO findById(Long labelId) {
+        String sql = "SELECT id, name, description, background_color, text_color " +
+                "FROM label " +
+                "WHERE id = :labelId ";
+        try {
+            return template.queryForObject(sql, Map.of("labelId", labelId), labelDetailsVORowMapper());
+        } catch (DataAccessException e) {
+            return null;
+        }
     }
 
     private final RowMapper<LabelVO> labelRowMapper() {
