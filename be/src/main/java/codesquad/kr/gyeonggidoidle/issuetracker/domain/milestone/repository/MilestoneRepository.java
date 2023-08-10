@@ -2,9 +2,8 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.Milestone;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.vo.MilestoneDetailsVO;
-
 import java.util.List;
-
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -60,6 +59,11 @@ public class MilestoneRepository {
                 .addValue("description", milestone.getDescription())
                 .addValue("dueDate", milestone.getDueDate());
         return template.update(sql, params) > 0;
+    }
+
+    public boolean delete(Long milestoneId) {
+        String sql = "UPDATE milestone SET is_deleted = TRUE WHERE id = :milestoneId";
+        return template.update(sql, Map.of("milestoneId", milestoneId)) > 0;
     }
 
     private final RowMapper<MilestoneDetailsVO> milestoneDetailsVORowMapper() {

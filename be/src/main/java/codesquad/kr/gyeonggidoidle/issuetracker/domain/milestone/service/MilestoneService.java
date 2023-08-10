@@ -48,6 +48,10 @@ public class MilestoneService {
         return milestoneRepository.update(MilestoneUpdateCondition.to(condition));
     }
 
+    public boolean delete(Long milestoneId) {
+        return milestoneRepository.delete(milestoneId);
+    }
+
     private List<Long> getMilestoneIds(List<MilestoneDetailsVO> milestoneDetailsVOs) {
         return milestoneDetailsVOs.stream()
                 .map(MilestoneDetailsVO::getId)

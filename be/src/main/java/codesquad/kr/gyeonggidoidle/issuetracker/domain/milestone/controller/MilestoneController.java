@@ -6,6 +6,7 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.controller.resp
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.MilestoneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +38,12 @@ public class MilestoneController {
     @PutMapping("/api/milestones/{milestoneId}")
     public ApiResponse update(@PathVariable Long milestoneId, @RequestBody MilestoneRequest request) {
         milestoneService.update(MilestoneRequest.to(milestoneId, request));
+        return ApiResponse.success(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/api/milestones/{milestoneId}")
+    public ApiResponse delete(@PathVariable Long milestoneId) {
+        milestoneService.delete(milestoneId);
         return ApiResponse.success(HttpStatus.OK);
     }
 }
