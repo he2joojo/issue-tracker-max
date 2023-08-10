@@ -93,4 +93,13 @@ class MilestoneRepositoryTest {
         // then
         assertThat(actual).isTrue();
     }
+
+    @DisplayName("마일스톤 아이디를 받아 is_open을 바꾸고 성공하면 true를 반환한다")
+    @Test
+    void updateStatus() {
+        // when
+        boolean actual = repository.updateStatus(1L, false);
+        // then
+        assertThat(actual).isTrue();
+    }
 }
