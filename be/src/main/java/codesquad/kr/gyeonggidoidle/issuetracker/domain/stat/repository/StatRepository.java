@@ -3,9 +3,11 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.IssueByMilestoneVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.MilestoneStatVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.StatVO;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -13,11 +15,19 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+
 @RequiredArgsConstructor
 @Repository
 public class StatRepository {
 
     private final NamedParameterJdbcTemplate template;
+
+    private final RowMapper<StatVO> statVORowMapper = (rs, rowNum) -> StatVO.builder()
+            .openIssueCount(rs.getInt("open_issue_count"))
+            .closedIssueCount(rs.getInt("closed_issue_count"))
+            .milestoneCount((rs.getInt("milestone_count")))
+            .labelCount(rs.getInt("label_count"))
+            .build();
 
     public StatVO countOverallStats() {
         String sql = "SELECT " +
@@ -56,20 +66,13 @@ public class StatRepository {
 
     public IssueByMilestoneVO findIssuesCountByMilestoneId(Long milestoneId) {
         String sql = "SELECT " +
-                "(SELECT COUNT(*) FROM milestone AS m LEFT JOIN issue AS i ON m.id = i.milestone_id " +
-                "WHERE (i.is_open = TRUE AND i.is_deleted = FALSE AND m.id = :milestoneId)) AS open_issue_count, " +
-                "(SELECT COUNT(*) FROM milestone AS m LEFT JOIN issue AS i ON m.id = i.milestone_id " +
-                "WHERE (i.is_open = FALSE AND i.is_deleted = FALSE AND m.id = :milestoneId)) AS closed_issue_count";
+                "(SELECT COUNT(*) FROM milestone LEFT JOIN issue ON milestone.id = issue.milestone_id " +
+                "WHERE (issue.is_open = TRUE AND issue.is_deleted = FALSE AND milestone.id = :milestoneId)) AS open_issue_count, " +
+                "(SELECT COUNT(*) FROM milestone LEFT JOIN issue ON milestone.id = issue.milestone_id " +
+                "WHERE (issue.is_open = FALSE AND issue.is_deleted = FALSE AND milestone.id = :milestoneId)) AS closed_issue_count";
 
         return template.queryForObject(sql, Map.of("milestoneId", milestoneId), issueByMilestoneVORowMapper());
     }
-
-    private final RowMapper<StatVO> statVORowMapper = (rs, rowNum) -> StatVO.builder()
-            .openIssueCount(rs.getInt("open_issue_count"))
-            .closedIssueCount(rs.getInt("closed_issue_count"))
-            .milestoneCount((rs.getInt("milestone_count")))
-            .labelCount(rs.getInt("label_count"))
-            .build();
 
     private final RowMapper<StatVO> countLabelStatsRowMapper() {
         return ((rs, rowNum) -> StatVO.builder()

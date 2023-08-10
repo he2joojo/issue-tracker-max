@@ -20,5 +20,6 @@ public class ApiResponse<T> {
 
     public static ApiResponse exception(HttpStatus status, String data) {
         return new ApiResponse<>(status.value(), data);
+
     }
 }
