@@ -1,5 +1,6 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.label.integration;
 
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -91,6 +92,30 @@ class LabelIntegrationTest {
                         jsonPath("$.name").value("라벨 1"),
                         jsonPath("$.description").doesNotExist()
                 );
+    }
+
+    @DisplayName("라벨을 받아 내용을 수정한다.")
+    @Test
+    void update() throws Exception {
+        // given
+        LabelRequest request = LabelRequest.builder()
+                .name("updatedTitle")
+                .description("설명")
+                .backgroundColor("##")
+                .textColor("#")
+                .build();
+
+        // when
+        Jwt jwt = makeToken();
+        ResultActions resultActions = mockMvc.perform(patch("/api/labels/1")
+                .header("Authorization", "Bearer " + jwt.getAccessToken())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(request)));
+
+        // then
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusCode").value(200))
+                .andDo(print());
     }
 
     private Jwt makeToken() {
