@@ -52,6 +52,10 @@ public class MilestoneService {
         return milestoneRepository.delete(milestoneId);
     }
 
+    public boolean updateStatus(Long milestoneId, boolean isOpen) {
+        return milestoneRepository.updateStatus(milestoneId, isOpen);
+    }
+
     private List<Long> getMilestoneIds(List<MilestoneDetailsVO> milestoneDetailsVOs) {
         return milestoneDetailsVOs.stream()
                 .map(MilestoneDetailsVO::getId)

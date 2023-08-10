@@ -66,6 +66,11 @@ public class MilestoneRepository {
         return template.update(sql, Map.of("milestoneId", milestoneId)) > 0;
     }
 
+    public boolean updateStatus(Long milestoneId, boolean  isOpen) {
+        String sql = "UPDATE milestone SET is_open = :isOpen WHERE id = :milestoneId";
+        return template.update(sql, Map.of("milestoneId", milestoneId, "isOpen", isOpen)) > 0; // TODO: 이미 닫힌 마일스톤에 대해 닫기 요청 가능한지 확인하기
+    }
+
     private final RowMapper<MilestoneDetailsVO> milestoneDetailsVORowMapper() {
         return ((rs, rowNum) -> MilestoneDetailsVO.builder()
                 .id(rs.getLong("id"))
