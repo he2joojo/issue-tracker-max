@@ -1,18 +1,24 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.label.integration;
 
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.IntegrationTest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.Jwt;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.controller.request.LabelCreateRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @IntegrationTest
 class LabelIntegrationTest {
@@ -22,6 +28,9 @@ class LabelIntegrationTest {
 
     @Autowired
     private JwtProvider jwtProvider;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @DisplayName("라벨의 모드 정보를 가지고 온다.")
     @Test
@@ -42,7 +51,35 @@ class LabelIntegrationTest {
                 );
     }
 
+    @DisplayName("라벨을 받아 저장한다.")
+    @Test
+    void create() throws Exception {
+        // given
+        LabelCreateRequest request = LabelCreateRequest.builder()
+                .name("label1")
+                .description("설명")
+                .backgroundColor("##")
+                .textColor("#")
+                .build();
+
+        // when
+        Jwt jwt = makeToken();
+        ResultActions resultActions = mockMvc.perform(post("/api/labels")
+                .header("Authorization", "Bearer " + jwt.getAccessToken())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(request)));
+
+        // then
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusCode").value(200))
+                .andDo(print());
+    }
+
     private Jwt makeToken() {
         return jwtProvider.createJwt(Map.of("memberId",1L));
+    }
+
+    private <T> String toJson(T data) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(data);
     }
 }
