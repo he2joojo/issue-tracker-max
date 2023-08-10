@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.IntegrationTest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.Jwt;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.controller.request.MilestoneCreateRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.controller.request.MilestoneRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
@@ -75,7 +75,7 @@ class MilestoneIntegrationTest {
     @Test
     void create() throws Exception {
         // given
-        MilestoneCreateRequest request = MilestoneCreateRequest.builder()
+        MilestoneRequest request = MilestoneRequest.builder()
                 .name("name")
                 .description("설명")
                 .dueDate(LocalDate.now())

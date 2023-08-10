@@ -3,6 +3,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.MilestoneRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.vo.MilestoneDetailsVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.condition.MilestoneCreateCondition;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.condition.MilestoneUpdateCondition;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.information.MilestonePageInformation;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.StatRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.vo.IssueByMilestoneVO;
@@ -41,6 +42,10 @@ public class MilestoneService {
 
     public boolean create(MilestoneCreateCondition condition) {
         return milestoneRepository.save(MilestoneCreateCondition.to(condition));
+    }
+
+    public boolean update(MilestoneUpdateCondition condition) {
+        return milestoneRepository.update(MilestoneUpdateCondition.to(condition));
     }
 
     private List<Long> getMilestoneIds(List<MilestoneDetailsVO> milestoneDetailsVOs) {

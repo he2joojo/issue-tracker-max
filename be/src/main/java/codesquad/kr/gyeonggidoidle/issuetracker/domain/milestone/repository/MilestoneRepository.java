@@ -51,6 +51,17 @@ public class MilestoneRepository {
         return result > 0;
     }
 
+    public boolean update(Milestone milestone) {
+        String sql = "UPDATE milestone SET name = :name, description = :description, due_date = :dueDate " +
+                "WHERE id = :milestoneId";
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("milestoneId", milestone.getId())
+                .addValue("name", milestone.getName())
+                .addValue("description", milestone.getDescription())
+                .addValue("dueDate", milestone.getDueDate());
+        return template.update(sql, params) > 0;
+    }
+
     private final RowMapper<MilestoneDetailsVO> milestoneDetailsVORowMapper() {
         return ((rs, rowNum) -> MilestoneDetailsVO.builder()
                 .id(rs.getLong("id"))
