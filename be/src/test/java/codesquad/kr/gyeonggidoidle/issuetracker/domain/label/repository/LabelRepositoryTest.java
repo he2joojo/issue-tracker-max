@@ -1,8 +1,10 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.RepositoryTest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.Label;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelDetailsVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelVO;
 import java.util.List;
@@ -10,8 +12,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 @RepositoryTest
 class LabelRepositoryTest {
@@ -51,5 +51,21 @@ class LabelRepositoryTest {
             assertions.assertThat(actual.get(1).getName()).isEqualTo("라벨 1");
             assertions.assertThat(actual.get(3).getName()).isEqualTo("라벨 3");
         });
+    }
+
+    @DisplayName("Label을 받아서 db에 저장한다.")
+    @Test
+    void save() {
+        // given
+        Label label = Label.builder()
+                .name("label")
+                .description("test")
+                .backgroundColor("##")
+                .textColor("#")
+                .build();
+        // when
+        boolean actual = repository.save(label);
+        // then
+        assertThat(actual).isTrue();
     }
 }
