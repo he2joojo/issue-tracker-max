@@ -68,4 +68,20 @@ class MilestoneRepositoryTest {
         // then
         assertThat(actual).isTrue();
     }
+
+    @DisplayName("라벨 내용을 수정하고 성공하면 true를 반환한다.")
+    @Test
+    void update() {
+        // given
+        Milestone milestone = Milestone.builder()
+                .id(1L)
+                .name("update title")
+                .description("tmp")
+                .dueDate(LocalDate.now())
+                .build();
+        // when
+        boolean actual = repository.update(milestone);
+        // then
+        assertThat(actual).isTrue();
+    }
 }
