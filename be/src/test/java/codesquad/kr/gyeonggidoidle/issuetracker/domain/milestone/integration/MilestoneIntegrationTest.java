@@ -2,6 +2,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.integration;
 
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -84,6 +85,29 @@ class MilestoneIntegrationTest {
         // when
         Jwt jwt = makeToken();
         ResultActions resultActions = mockMvc.perform(post("/api/milestones")
+                .header("Authorization", "Bearer " + jwt.getAccessToken())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(request)));
+
+        // then
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusCode").value(200))
+                .andDo(print());
+    }
+
+    @DisplayName("마일스톤을 받아 내용을 수정한다.")
+    @Test
+    void update() throws Exception {
+        // given
+        MilestoneRequest request = MilestoneRequest.builder()
+                .name("updatedTitle")
+                .description("설명")
+                .dueDate(LocalDate.now())
+                .build();
+
+        // when
+        Jwt jwt = makeToken();
+        ResultActions resultActions = mockMvc.perform(put("/api/milestones/1")
                 .header("Authorization", "Bearer " + jwt.getAccessToken())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(request)));
