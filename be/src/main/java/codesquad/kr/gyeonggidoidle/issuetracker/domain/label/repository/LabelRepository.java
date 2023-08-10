@@ -1,18 +1,17 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository;
 
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.Label;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelDetailsVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelVO;
-
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Repository
@@ -76,6 +75,18 @@ public class LabelRepository {
                 "FROM label " +
                 "ORDER BY name";
         return template.query(sql, new MapSqlParameterSource(), labelSimpleVORowMapper());
+    }
+
+    public boolean save(Label label) {
+        String sql = "INSERT INTO label(name, description, background_color, text_color) "
+                + "VALUES (:name, :description, :backgroundColor, :textColor)";
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("name", label.getName())
+                .addValue("description", label.getDescription())
+                .addValue("backgroundColor", label.getBackgroundColor())
+                .addValue("textColor", label.getTextColor());
+        int result = template.update(sql, params);
+        return result > 0;
     }
 
     private final RowMapper<LabelVO> labelRowMapper() {
