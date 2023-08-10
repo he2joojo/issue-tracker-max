@@ -1,5 +1,6 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository;
 
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.Milestone;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.repository.vo.MilestoneDetailsVO;
 
 import java.util.List;
@@ -37,6 +38,17 @@ public class MilestoneRepository {
                 "FROM milestone " +
                 "ORDER BY name";
         return template.query(sql, new MapSqlParameterSource(), milestoneSipmleVORowMapper());
+    }
+
+    public boolean save(Milestone milestone) {
+        String sql = "INSERT INTO milestone(name, description, due_date) "
+                + "VALUES (:name, :description, :dueDate)";
+        MapSqlParameterSource params = new MapSqlParameterSource()
+                .addValue("name", milestone.getName())
+                .addValue("description", milestone.getDescription())
+                .addValue("dueDate", milestone.getDueDate());
+        int result = template.update(sql, params);
+        return result > 0;
     }
 
     private final RowMapper<MilestoneDetailsVO> milestoneDetailsVORowMapper() {
