@@ -3,6 +3,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.label.service;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.LabelRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.repository.VO.LabelDetailsVO;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.service.condition.LabelCreateCondition;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.service.condition.LabelUpdateCondition;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.service.information.LabelDetailsInformation;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.service.information.LabelPageInformation;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.stat.repository.StatRepository;
@@ -30,5 +31,9 @@ public class LabelService {
 
     public LabelDetailsInformation read(Long labelId) {
         return LabelDetailsInformation.from(labelRepository.findById(labelId));
+    }
+
+    public boolean update(LabelUpdateCondition condition) {
+        return labelRepository.update(LabelUpdateCondition.to(condition));
     }
 }

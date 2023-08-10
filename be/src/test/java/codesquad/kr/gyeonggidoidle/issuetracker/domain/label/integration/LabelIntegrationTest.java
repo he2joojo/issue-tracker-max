@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.IntegrationTest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.Jwt;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.controller.request.LabelCreateRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.label.controller.request.LabelRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Map;
@@ -55,7 +55,7 @@ class LabelIntegrationTest {
     @Test
     void create() throws Exception {
         // given
-        LabelCreateRequest request = LabelCreateRequest.builder()
+        LabelRequest request = LabelRequest.builder()
                 .name("label1")
                 .description("설명")
                 .backgroundColor("##")
