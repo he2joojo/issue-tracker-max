@@ -75,6 +75,24 @@ class LabelIntegrationTest {
                 .andDo(print());
     }
 
+    @DisplayName("하나의 라벨 정보를 가져온다.")
+    @Test
+    void read() throws Exception {
+        // when
+        Jwt jwt = makeToken();
+        ResultActions resultActions = mockMvc.perform(get("/api/labels/1")
+                .header("Authorization", "Bearer " + jwt.getAccessToken()));
+
+        // then
+        resultActions
+                .andExpect(status().isOk())
+                .andExpectAll(
+                        jsonPath("$.id").value(1L),
+                        jsonPath("$.name").value("라벨 1"),
+                        jsonPath("$.description").doesNotExist()
+                );
+    }
+
     private Jwt makeToken() {
         return jwtProvider.createJwt(Map.of("memberId",1L));
     }
