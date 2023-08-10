@@ -119,12 +119,26 @@ class MilestoneIntegrationTest {
                 .andDo(print());
     }
 
-    @DisplayName("마일스톤 아이디를 받아 라벨을 삭제한다.")
+    @DisplayName("마일스톤 아이디를 받아 마일스톤을 삭제한다.")
     @Test
     void delete() throws Exception {
         // when
         Jwt jwt = makeToken();
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.delete("/api/milestones/3")
+                .header("Authorization", "Bearer " + jwt.getAccessToken()));
+
+        // then
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusCode").value(200))
+                .andDo(print());
+    }
+
+    @DisplayName("마일스톤 아이디와 변경 할 상태를 받아 마일스톤의 상태를 변경한다.")
+    @Test
+    void updateStatus() throws Exception {
+        // when
+        Jwt jwt = makeToken();
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.patch("/api/milestones/3?isOpen=false")
                 .header("Authorization", "Bearer " + jwt.getAccessToken()));
 
         // then
