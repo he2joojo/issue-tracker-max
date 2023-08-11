@@ -5,16 +5,18 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Getter
 public class SignUpRequest {
 
     @Email
-    private final String email;
+    private String email;
     @NotBlank
-    private final String password;
+    private String password;
     @NotBlank
-    private final String profile;
+    private String profile;
 
     @Builder
     public SignUpRequest(String email, String password, String profile) {
