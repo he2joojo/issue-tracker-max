@@ -37,15 +37,18 @@ public class JwtIntegrationTest {
     @Test
     @Order(1)
     void login() throws Exception {
+        // given
         LoginRequest request = LoginRequest.builder()
                 .email("joy@codesquad.kr")
                 .password("1q2w3e4r!")
                 .build();
 
+        // when
         ResultActions resultActions = mockMvc.perform(post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(request)));
 
+        // then
         resultActions
                 .andExpect(status().isOk())
                 .andExpectAll(
@@ -59,16 +62,19 @@ public class JwtIntegrationTest {
     @Test
     @Order(2)
     void signUp() throws Exception {
+        // given
         SignUpRequest request = SignUpRequest.builder()
                 .email("test@test.com")
                 .password("!test1234")
                 .profile("profile1234")
                 .build();
 
+        // when
         ResultActions resultActions = mockMvc.perform(post("/api/signup")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(request)));
 
+        // then
         resultActions
                 .andExpect(status().isOk());
     }
@@ -78,12 +84,16 @@ public class JwtIntegrationTest {
     @Order(3)
     @Disabled
     void reissueAccessToken() throws Exception {
+        // given
         Jwt jwt = makeToken();
         RefreshTokenRequest request = new RefreshTokenRequest(jwt.getRefreshToken());
+
+        // when
         ResultActions resultActions = mockMvc.perform(post("/api/auth/reissue")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(toJson(request)));
 
+        // then
         resultActions
                 .andExpect(status().isOk())
                 .andExpectAll(
@@ -97,10 +107,14 @@ public class JwtIntegrationTest {
     @Test
     @Order(4)
     void logout() throws Exception {
+        // given
         Jwt jwt = makeToken();
+
+        // when
         ResultActions resultActions = mockMvc.perform(post("/api/logout")
                 .header("Authorization", "Bearer " + jwt.getAccessToken()));
 
+        // then
         resultActions.andExpect(status().isOk());
     }
 

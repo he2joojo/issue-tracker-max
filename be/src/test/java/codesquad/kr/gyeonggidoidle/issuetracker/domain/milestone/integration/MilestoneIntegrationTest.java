@@ -36,8 +36,10 @@ class MilestoneIntegrationTest {
     @DisplayName("열린 마일스톤의 모드 정보를 가지고 온다.")
     @Test
     void getOpenMilestones() throws Exception {
-        //when
+        // given
         Jwt jwt = makeToken();
+
+        //when
         ResultActions resultActions = mockMvc.perform(get("/api/milestones/open")
                 .header("Authorization", "Bearer " + jwt.getAccessToken()));
 
@@ -56,8 +58,10 @@ class MilestoneIntegrationTest {
     @DisplayName("닫힌 마일스톤의 모드 정보를 가지고 온다.")
     @Test
     void readClosedMilestones() throws Exception {
-        //when
+        // given
         Jwt jwt = makeToken();
+
+        //when
         ResultActions resultActions = mockMvc.perform(get("/api/milestones/closed")
                 .header("Authorization", "Bearer " + jwt.getAccessToken()));
 
@@ -82,9 +86,9 @@ class MilestoneIntegrationTest {
                 .description("설명")
                 .dueDate(LocalDate.now())
                 .build();
+        Jwt jwt = makeToken();
 
         // when
-        Jwt jwt = makeToken();
         ResultActions resultActions = mockMvc.perform(post("/api/milestones")
                 .header("Authorization", "Bearer " + jwt.getAccessToken())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -105,9 +109,9 @@ class MilestoneIntegrationTest {
                 .description("설명")
                 .dueDate(LocalDate.now())
                 .build();
+        Jwt jwt = makeToken();
 
         // when
-        Jwt jwt = makeToken();
         ResultActions resultActions = mockMvc.perform(put("/api/milestones/1")
                 .header("Authorization", "Bearer " + jwt.getAccessToken())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -122,8 +126,10 @@ class MilestoneIntegrationTest {
     @DisplayName("마일스톤 아이디를 받아 마일스톤을 삭제한다.")
     @Test
     void delete() throws Exception {
-        // when
+        // given
         Jwt jwt = makeToken();
+
+        // when
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.delete("/api/milestones/3")
                 .header("Authorization", "Bearer " + jwt.getAccessToken()));
 
@@ -136,8 +142,10 @@ class MilestoneIntegrationTest {
     @DisplayName("마일스톤 아이디와 변경 할 상태를 받아 마일스톤의 상태를 변경한다.")
     @Test
     void updateStatus() throws Exception {
-        // when
+        // given
         Jwt jwt = makeToken();
+
+        // when
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.patch("/api/milestones/3?isOpen=false")
                 .header("Authorization", "Bearer " + jwt.getAccessToken()));
 
