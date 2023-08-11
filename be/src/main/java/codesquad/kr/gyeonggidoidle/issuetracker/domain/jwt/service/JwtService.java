@@ -5,12 +5,10 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.Jwt;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository.JwtRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.condition.LoginCondition;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.condition.SignUpCondition;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.Member;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.MemberRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.exception.IllegalJwtTokenException;
 import codesquad.kr.gyeonggidoidle.issuetracker.exception.IllegalPasswordException;
-import codesquad.kr.gyeonggidoidle.issuetracker.exception.MemberDuplicationException;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,6 +22,7 @@ public class JwtService {
     private final MemberRepository memberRepository;
     private final JwtProvider jwtProvider;
 
+    @Transactional
     public Jwt login(LoginCondition condition) {
         Member member = memberRepository.findByEmail(condition.getEmail());
         if (!verifyPassword(member, condition.getPassword())) {
@@ -32,15 +31,6 @@ public class JwtService {
         Jwt jwt = jwtProvider.createJwt(generateMemberClaims(member));
         jwtRepository.saveRefreshToken(jwt.getRefreshToken(), member.getId());
         return jwt;
-    }
-
-    @Transactional
-    public void signUp(SignUpCondition condition) {
-        String email = condition.getEmail();
-        if (existMember(memberRepository.findByEmail(email))) {
-            throw new MemberDuplicationException(email);
-        }
-        memberRepository.saveMember(SignUpCondition.to(condition));
     }
 
     @Transactional

@@ -11,6 +11,7 @@ import codesquad.kr.gyeonggidoidle.issuetracker.annotation.IntegrationTest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.Jwt;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.controller.request.MilestoneRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.controller.request.MilestoneStatusRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
@@ -143,11 +144,14 @@ class MilestoneIntegrationTest {
     @Test
     void updateStatus() throws Exception {
         // given
+        MilestoneStatusRequest request = new MilestoneStatusRequest(false);
         Jwt jwt = makeToken();
 
         // when
-        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.patch("/api/milestones/3?isOpen=false")
-                .header("Authorization", "Bearer " + jwt.getAccessToken()));
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.patch("/api/milestones/3")
+                .header("Authorization", "Bearer " + jwt.getAccessToken())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(toJson(request)));
 
         // then
         resultActions.andExpect(status().isOk())
