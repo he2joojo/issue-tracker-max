@@ -83,7 +83,7 @@ public class JwtAuthorizationFilter implements Filter {
 
     private ApiResponse generateErrorApiResponse(RuntimeException e) {
         JwtExceptionType jwtExceptionType = JwtExceptionType.from(e);
-        return ApiResponse.exception(jwtExceptionType.getHttpstatus(), jwtExceptionType.getMessage());
+        return ApiResponse.fail(jwtExceptionType.getHttpstatus(), jwtExceptionType.getMessage());
     }
 
 }

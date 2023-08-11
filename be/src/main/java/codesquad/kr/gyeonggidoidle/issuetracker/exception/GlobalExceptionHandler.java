@@ -11,17 +11,17 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ApiResponse handleException(Exception e) {
-        return ApiResponse.exception(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        return ApiResponse.fail(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
     }
 
     @ExceptionHandler(CustomException.class)
     public ApiResponse handleException(CustomException e) {
-        return ApiResponse.exception(e.getHttpStatus(), e.getMessage());
+        return ApiResponse.fail(e.getHttpStatus(), e.getMessage());
     }
 
     @ExceptionHandler(JwtException.class)
     public ApiResponse handleException(JwtException e) {
         JwtExceptionType jwtExceptionType = JwtExceptionType.from(e);
-        return ApiResponse.exception(jwtExceptionType.getHttpstatus(), jwtExceptionType.getMessage());
+        return ApiResponse.fail(jwtExceptionType.getHttpstatus(), jwtExceptionType.getMessage());
     }
 }
