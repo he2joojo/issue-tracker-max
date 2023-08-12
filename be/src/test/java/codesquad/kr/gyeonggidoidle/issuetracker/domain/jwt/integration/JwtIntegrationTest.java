@@ -109,7 +109,8 @@ public class JwtIntegrationTest {
                 .header("Authorization", "Bearer " + accessToken));
 
         // then
-        resultActions.andExpect(status().isOk());
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.statusCode").value(200));
     }
 
     private <T> String toJson(T data) throws JsonProcessingException {
