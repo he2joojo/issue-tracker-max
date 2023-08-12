@@ -10,6 +10,8 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.MemberR
 import codesquad.kr.gyeonggidoidle.issuetracker.exception.IllegalJwtTokenException;
 import codesquad.kr.gyeonggidoidle.issuetracker.exception.IllegalPasswordException;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,10 +37,8 @@ public class JwtService {
 
     @Transactional
     public Jwt reissueAccessToken(String refreshToken) {
-        Member member = jwtRepository.findByRefreshToken(refreshToken);
-        if (member == null) {
-            throw new IllegalJwtTokenException(JwtTokenType.REFRESH);
-        }
+        Optional<Member> optionalMember = jwtRepository.findByRefreshToken(refreshToken);
+        Member member = optionalMember.orElseThrow(() -> new IllegalJwtTokenException(JwtTokenType.REFRESH));
         return jwtProvider.reissueAccessToken(generateMemberClaims(member), refreshToken);
     }
 
@@ -57,6 +57,6 @@ public class JwtService {
     }
 
     private boolean verifyPassword(Member member, String password) {
-        return existMember(member) && member.getPassword().equals(password);
+        return existMember(member) && Objects.equals(password, member.getPassword());
     }
 }
