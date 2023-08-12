@@ -1,7 +1,7 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.member.controller;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.controller.response.ApiResponse;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.SignUpRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.controller.request.SignUpRequest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.service.MemberService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.member.controller.request;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.condition.SignUpCondition;
 import javax.validation.constraints.Email;

@@ -4,7 +4,7 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.IntegrationTest;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.SignUpRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.controller.request.SignUpRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;

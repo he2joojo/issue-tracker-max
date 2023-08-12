@@ -3,6 +3,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.exception;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.controller.response.ApiResponse;
 import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -23,5 +24,10 @@ public class GlobalExceptionHandler {
     public ApiResponse handleException(JwtException e) {
         JwtExceptionType jwtExceptionType = JwtExceptionType.from(e);
         return ApiResponse.fail(jwtExceptionType.getHttpstatus(), jwtExceptionType.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ApiResponse handleException(MethodArgumentNotValidException e) {
+        return ApiResponse.fail(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 }
