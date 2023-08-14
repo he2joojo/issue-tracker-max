@@ -3,6 +3,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.controller.response.ApiResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.LoginRequest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.RefreshTokenRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response.JwtLoginResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response.JwtResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.JwtService;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +21,8 @@ public class AuthenticationController {
     private final JwtService jwtService;
 
     @PostMapping("/api/login")
-    public JwtResponse login(@RequestBody @Valid LoginRequest request) {
-        return JwtResponse.from(jwtService.login(LoginRequest.to(request)));
+    public JwtLoginResponse login(@RequestBody @Valid LoginRequest request) {
+        return JwtLoginResponse.from(jwtService.login(LoginRequest.to(request)));
     }
 
     @PostMapping("/api/auth/reissue")
