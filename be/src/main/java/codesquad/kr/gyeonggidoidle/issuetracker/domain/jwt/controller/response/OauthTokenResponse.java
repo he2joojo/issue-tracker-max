@@ -1,5 +1,6 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class OauthTokenResponse {
     private String accessToken;
     private String scope;
+    @JsonProperty("token_type")
     private String tokenType;
 
     @Builder

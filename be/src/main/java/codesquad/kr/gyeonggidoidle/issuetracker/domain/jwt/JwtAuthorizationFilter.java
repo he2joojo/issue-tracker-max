@@ -22,7 +22,7 @@ import org.springframework.util.PatternMatchUtils;
 
 public class JwtAuthorizationFilter implements Filter {
 
-    private final String[] whiteListUris = new String[]{"/api/login", "/api/signup", "/api/auth/reissue"};
+    private final String[] whiteListUris = new String[]{"/api/login", "/api/signup", "/api/auth/reissue", "/api/login/**"};
     private final JwtProvider jwtProvider = new JwtProvider();
     private final ObjectMapper objectMapper;
 
@@ -50,7 +50,7 @@ public class JwtAuthorizationFilter implements Filter {
         try {
             String token = getToken(httpServletRequest);
             Claims claims = jwtProvider.getClaims(token);
-            request.setAttribute("memberId", claims.get("memberId")); // TODO: email으로 수정 고려
+            request.setAttribute("memberId", claims.get("memberId"));
             chain.doFilter(request, response);
         } catch (RuntimeException e) {
             sendErrorApiResponse(response, e);

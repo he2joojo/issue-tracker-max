@@ -2,9 +2,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity;
 
 import java.util.Arrays;
 import java.util.Map;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 public enum OauthAttributes {
 
     GITHUB("github") {
@@ -19,6 +17,10 @@ public enum OauthAttributes {
     };
 
     private final String providerName;
+
+    OauthAttributes(String name) {
+        this.providerName = name;
+    }
 
     public static UserProfile extract(String providerName, Map<String, Object> attributes) {
         return Arrays.stream(values())
