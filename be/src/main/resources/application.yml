@@ -9,6 +9,8 @@ spring:
       mode: always
       schema-locations: classpath*:schema.sql
     encoding: UTF-8
+  profiles:
+    include: oauth
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
