@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class OauthTokenResponse {
+    @JsonProperty("access_token")
     private String accessToken;
     private String scope;
     @JsonProperty("token_type")
