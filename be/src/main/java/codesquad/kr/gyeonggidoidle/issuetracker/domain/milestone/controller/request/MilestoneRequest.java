@@ -3,6 +3,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.controller.req
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.condition.MilestoneCreateCondition;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.condition.MilestoneUpdateCondition;
 import java.time.LocalDate;
+import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Builder;
@@ -17,6 +18,7 @@ public class MilestoneRequest {
     private String name;
     private String description;
     @NotNull(message = "날짜를 입력해주세요.")
+    @FutureOrPresent(message = "유효한 만료 날짜를 입력해주세요.")
     private LocalDate dueDate;
 
     @Builder

@@ -1,13 +1,16 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller;
 
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.request.LoginRequest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.response.JwtLoginResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.response.JwtResponse;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.controller.response.ApiResponse;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.request.LoginRequest;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.request.RefreshTokenRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.response.JwtTokenType;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service.JwtService;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service.OauthService;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service.information.JwtLoginInformation;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.controller.response.ApiResponse;
+import codesquad.kr.gyeonggidoidle.issuetracker.exception.IllegalJwtTokenException;
+import java.util.Arrays;
+import java.util.Objects;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -35,9 +38,9 @@ public class AuthenticationController {
         return getJwtLoginResponse(response, information);
     }
 
-    @PostMapping("/api/auth/reissue")
-    public JwtResponse reissueAccessToken(@RequestBody RefreshTokenRequest request) {
-        return JwtResponse.from(jwtService.reissueAccessToken(request.getRefreshToken()));
+    @GetMapping("/api/auth/reissue")
+    public JwtResponse reissueAccessToken(HttpServletRequest request) {
+        return JwtResponse.from(jwtService.reissueAccessToken(getRefreshToken(request)));
     }
 
     @PostMapping("/api/logout")
@@ -62,5 +65,13 @@ public class AuthenticationController {
 
         response.addCookie(cookie);
         return JwtLoginResponse.from(information);
+    }
+
+    private String getRefreshToken(HttpServletRequest request) {
+        return Arrays.stream(request.getCookies())
+                .filter(cookie -> Objects.equals(cookie.getName(), "refreshToken"))
+                .map(Cookie::getValue)
+                .findFirst()
+                .orElseThrow(() -> new IllegalJwtTokenException(JwtTokenType.REFRESH));
     }
 }

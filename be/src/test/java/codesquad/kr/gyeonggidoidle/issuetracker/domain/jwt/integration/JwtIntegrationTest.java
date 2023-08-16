@@ -1,12 +1,12 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.integration;
 
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.IntegrationTest;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.request.LoginRequest;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.request.RefreshTokenRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -76,12 +76,9 @@ public class JwtIntegrationTest {
             refreshToken[0] = cookie.getValue();
         });
 
-        RefreshTokenRequest request = new RefreshTokenRequest(refreshToken[0]);
-
         // when
-        ResultActions resultActions = mockMvc.perform(post("/api/auth/reissue")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(toJson(request)));
+        ResultActions resultActions = mockMvc.perform(get("/api/auth/reissue")
+                .cookie(new Cookie("refreshToken", refreshToken[0])));
 
         // then
         resultActions
