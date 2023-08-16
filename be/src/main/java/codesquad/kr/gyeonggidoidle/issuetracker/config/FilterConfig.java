@@ -11,11 +11,19 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfig {
 
     @Bean
+    public FilterRegistrationBean<Filter> corsFilter() {
+        FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
+        filterRegistrationBean.setFilter(new CorsFilter());
+        filterRegistrationBean.setOrder(1);
+        return filterRegistrationBean;
+    }
+
+    @Bean
     public FilterRegistrationBean<Filter> jwtAuthorizationFilter(ObjectMapper objectMapper) {
 
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new JwtAuthorizationFilter(objectMapper));
-        filterRegistrationBean.setOrder(1);
+        filterRegistrationBean.setOrder(2);
         return filterRegistrationBean;
     }
 }
