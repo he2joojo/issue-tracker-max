@@ -10,6 +10,7 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.Member;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.MemberRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.exception.IllegalJwtTokenException;
 import codesquad.kr.gyeonggidoidle.issuetracker.exception.IllegalPasswordException;
+import codesquad.kr.gyeonggidoidle.issuetracker.exception.MemberNotFoundException;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -33,8 +34,7 @@ public class JwtService {
         }
         Jwt jwt = jwtProvider.createJwt(generateMemberClaims(member));
         jwtTokenRepository.saveRefreshToken(jwt.getRefreshToken(), member.getId());
-        String profile = memberRepository.findProfileById(member.getId());
-        return JwtLoginInformation.from(profile, jwt);
+        return JwtLoginInformation.from(member, jwt);
     }
 
     public Jwt reissueAccessToken(String refreshToken) {
@@ -54,7 +54,10 @@ public class JwtService {
     }
 
     private boolean existMember(Member member) {
-        return member != null;
+        if (member == null) {
+            throw new MemberNotFoundException();
+        }
+        return true;
     }
 
     private boolean verifyPassword(Member member, String password) {

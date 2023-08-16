@@ -50,7 +50,7 @@ public class JwtIntegrationTest {
                     Arrays.stream(cookies).anyMatch(cookie -> cookie.getName().equals("refreshToken"));
                 })
                 .andExpectAll(
-                        jsonPath("$.length()").value(2),
+                        jsonPath("$.length()").value(4),
                         jsonPath("$.profile").isNotEmpty(),
                         jsonPath("$.jwtResponse.accessToken").isNotEmpty()
                 );

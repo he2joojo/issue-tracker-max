@@ -38,18 +38,12 @@ public class OauthService {
         OauthTokenResponse tokenResponse = getToken(code, provider);
         // 유저 정보 가져오기
         UserProfile userProfile = getUserProfile(providerName, tokenResponse, provider);
-        // 유저 DB에 저장
-        Member foundMember = findMember(userProfile.getEmail());
-        Long memberId;
-        if (foundMember == null) {
-            memberId = saveMember(userProfile);
-        } else {
-            memberId = foundMember.getId();
-        }
+        // 유저 DB에 있는지 확인 후 없으면 저장
+        Member member = findOrCreatemember(userProfile);
         // 우리 애플리케이션의 JWT 토큰 만들기
-        Jwt jwt = jwtProvider.createJwt(Map.of("memberId", memberId));
-        jwtTokenRepository.saveRefreshToken(jwt.getRefreshToken(), memberId);
-        return JwtLoginInformation.from(userProfile.getImageUrl(), jwt);
+        Jwt jwt = jwtProvider.createJwt(Map.of("memberId", member.getId()));
+        jwtTokenRepository.saveRefreshToken(jwt.getRefreshToken(), member.getId());
+        return JwtLoginInformation.from(member, jwt);
     }
 
     private OauthTokenResponse getToken(String code, OauthProvider provider) {
@@ -103,5 +97,17 @@ public class OauthService {
 
     private Member findMember(String email) {
         return memberRepository.findByEmail(email);
+    }
+
+    private Member findOrCreatemember(UserProfile userProfile) {
+        Member member = findMember(userProfile.getEmail());
+        if (member == null) {
+            member = Member.builder()
+                    .id(saveMember(userProfile))
+                    .name(userProfile.getName())
+                    .profile(userProfile.getImageUrl())
+                    .build();
+        }
+        return member;
     }
 }
