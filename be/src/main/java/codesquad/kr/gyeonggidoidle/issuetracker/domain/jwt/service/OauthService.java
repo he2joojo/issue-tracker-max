@@ -3,7 +3,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response.OauthTokenResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.Jwt;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.OauthAttributes;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.OauthAttributes;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.OauthProvider;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.UserProfile;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository.InMemoryProviderRepository;

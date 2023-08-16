@@ -1,4 +1,4 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.config;
+package codesquad.kr.gyeonggidoidle.issuetracker.config.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;

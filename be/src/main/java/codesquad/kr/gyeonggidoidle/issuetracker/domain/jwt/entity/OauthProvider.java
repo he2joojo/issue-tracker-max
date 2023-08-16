@@ -1,5 +1,6 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity;
 
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.OauthProperties;
 import lombok.Builder;
 import lombok.Getter;
 

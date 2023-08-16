@@ -1,4 +1,4 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt;
 
 import java.util.HashMap;
 import java.util.Map;

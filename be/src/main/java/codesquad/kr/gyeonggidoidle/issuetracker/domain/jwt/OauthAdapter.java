@@ -1,5 +1,6 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt;
 
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.OauthProvider;
 import java.util.HashMap;
 import java.util.Map;
 
