@@ -2,6 +2,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.config;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.config.filter.CorsFilter;
 import codesquad.kr.gyeonggidoidle.issuetracker.config.filter.JwtAuthorizationFilter;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -20,10 +21,10 @@ public class FilterConfig {
     }
 
     @Bean
-    public FilterRegistrationBean<Filter> jwtAuthorizationFilter(ObjectMapper objectMapper) {
+    public FilterRegistrationBean<Filter> jwtAuthorizationFilter(JwtProvider jwtProvider, ObjectMapper objectMapper) {
 
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
-        filterRegistrationBean.setFilter(new JwtAuthorizationFilter(objectMapper));
+        filterRegistrationBean.setFilter(new JwtAuthorizationFilter(jwtProvider, objectMapper));
         filterRegistrationBean.setOrder(2);
         return filterRegistrationBean;
     }
