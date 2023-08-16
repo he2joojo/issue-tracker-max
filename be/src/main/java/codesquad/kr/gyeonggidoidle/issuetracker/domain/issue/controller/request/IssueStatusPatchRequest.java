@@ -2,16 +2,17 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.controller.request
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.service.condition.IssueStatusPatchCondition;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
+import javax.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
 public class IssueStatusPatchRequest {
 
+    @NotBlank
     @JsonProperty("isOpen")
     private boolean open;
     private List<Long> issues;

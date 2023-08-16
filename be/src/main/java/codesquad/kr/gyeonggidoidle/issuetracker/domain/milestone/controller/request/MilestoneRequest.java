@@ -3,6 +3,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.controller.req
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.condition.MilestoneCreateCondition;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.condition.MilestoneUpdateCondition;
 import java.time.LocalDate;
+import javax.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,10 @@ import lombok.NoArgsConstructor;
 @Getter
 public class MilestoneRequest {
 
+    @NotBlank
     private String name;
     private String description;
+    @NotBlank
     private LocalDate dueDate;
 
     @Builder

@@ -1,6 +1,7 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.controller.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class MilestoneStatusRequest {
 
+    @NotBlank
     @JsonProperty("isOpen")
     private boolean open;
 
