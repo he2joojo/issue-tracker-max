@@ -4,6 +4,7 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.conditi
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.milestone.service.condition.MilestoneUpdateCondition;
 import java.time.LocalDate;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class MilestoneRequest {
     @NotBlank
     private String name;
     private String description;
-    @NotBlank
+    @NotNull(message = "날짜를 입력해주세요.")
     private LocalDate dueDate;
 
     @Builder
