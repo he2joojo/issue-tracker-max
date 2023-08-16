@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
 @Repository
-public class JwtRepository {
+public class JwtTokenRepository {
 
     private final NamedParameterJdbcTemplate template;
 

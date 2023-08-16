@@ -7,7 +7,7 @@ import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.OauthAttributes;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.OauthProvider;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.UserProfile;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository.InMemoryProviderRepository;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository.JwtRepository;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository.JwtTokenRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.information.JwtLoginInformation;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.Member;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.MemberRepository;
@@ -29,7 +29,7 @@ public class OauthService {
     private final InMemoryProviderRepository inMemoryProviderRepository;
     private final JwtProvider jwtProvider;
     private final MemberRepository memberRepository;
-    private final JwtRepository jwtRepository;
+    private final JwtTokenRepository jwtTokenRepository;
 
     public JwtLoginInformation login(String providerName, String code) {
         // 프론트에서 넘어온 provider 이름을 통해 InMemoryProviderRepository에서 OauthProvider 가져오기
@@ -48,7 +48,7 @@ public class OauthService {
         }
         // 우리 애플리케이션의 JWT 토큰 만들기
         Jwt jwt = jwtProvider.createJwt(Map.of("memberId", memberId));
-        jwtRepository.saveRefreshToken(jwt.getRefreshToken(), memberId);
+        jwtTokenRepository.saveRefreshToken(jwt.getRefreshToken(), memberId);
         return JwtLoginInformation.from(userProfile.getImageUrl(), jwt);
     }
 
