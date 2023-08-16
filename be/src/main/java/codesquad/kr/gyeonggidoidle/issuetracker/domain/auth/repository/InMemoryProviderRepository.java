@@ -1,6 +1,6 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.repository;
 
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.OauthProvider;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.entity.OauthProvider;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 

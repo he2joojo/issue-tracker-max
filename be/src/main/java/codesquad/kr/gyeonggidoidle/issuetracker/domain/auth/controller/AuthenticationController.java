@@ -1,13 +1,13 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller;
 
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.response.JwtLoginResponse;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.response.JwtResponse;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.issue.controller.response.ApiResponse;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.LoginRequest;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.RefreshTokenRequest;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response.JwtLoginResponse;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response.JwtResponse;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.JwtService;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.OauthService;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.information.JwtLoginInformation;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.request.LoginRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.request.RefreshTokenRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service.JwtService;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service.OauthService;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service.information.JwtLoginInformation;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

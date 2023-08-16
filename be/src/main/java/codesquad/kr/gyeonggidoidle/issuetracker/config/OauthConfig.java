@@ -1,9 +1,9 @@
 package codesquad.kr.gyeonggidoidle.issuetracker.config;
 
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.OauthAdapter;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.OauthProperties;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.OauthProvider;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository.InMemoryProviderRepository;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.OauthAdapter;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.OauthProperties;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.entity.OauthProvider;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.repository.InMemoryProviderRepository;
 import java.util.Map;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

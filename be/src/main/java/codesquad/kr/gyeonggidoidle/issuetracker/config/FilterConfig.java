@@ -2,7 +2,7 @@ package codesquad.kr.gyeonggidoidle.issuetracker.config;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.config.filter.CorsFilter;
 import codesquad.kr.gyeonggidoidle.issuetracker.config.filter.JwtAuthorizationFilter;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.entity.JwtProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;

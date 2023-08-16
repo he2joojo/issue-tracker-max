@@ -1,6 +1,6 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.response;
 
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.information.JwtLoginInformation;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service.information.JwtLoginInformation;
 import lombok.Builder;
 import lombok.Getter;
 

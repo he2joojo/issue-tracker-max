@@ -1,4 +1,4 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.entity;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

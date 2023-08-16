@@ -1,6 +1,6 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.auth;
 
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.UserProfile;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.entity.UserProfile;
 import java.util.Arrays;
 import java.util.Map;
 

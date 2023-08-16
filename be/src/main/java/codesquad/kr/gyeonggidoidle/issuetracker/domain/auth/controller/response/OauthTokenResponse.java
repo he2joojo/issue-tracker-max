@@ -1,4 +1,4 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

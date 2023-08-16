@@ -5,8 +5,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.annotation.IntegrationTest;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.LoginRequest;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request.RefreshTokenRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.request.LoginRequest;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.request.RefreshTokenRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

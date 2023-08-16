@@ -1,14 +1,14 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service;
 
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response.OauthTokenResponse;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.Jwt;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.OauthAttributes;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.OauthProvider;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.UserProfile;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository.InMemoryProviderRepository;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository.JwtTokenRepository;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.information.JwtLoginInformation;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.response.OauthTokenResponse;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.entity.Jwt;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.entity.JwtProvider;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.OauthAttributes;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.entity.OauthProvider;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.entity.UserProfile;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.repository.InMemoryProviderRepository;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.repository.JwtTokenRepository;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service.information.JwtLoginInformation;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.Member;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.MemberRepository;
 import java.nio.charset.StandardCharsets;

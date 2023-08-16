@@ -1,4 +1,4 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.repository;
 
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.Member;
 import java.util.Map;

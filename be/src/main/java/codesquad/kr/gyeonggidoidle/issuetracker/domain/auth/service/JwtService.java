@@ -1,11 +1,11 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service;
 
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.response.JwtTokenType;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.Jwt;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.entity.JwtProvider;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.repository.JwtTokenRepository;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.condition.LoginCondition;
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.information.JwtLoginInformation;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.response.JwtTokenType;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.entity.Jwt;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.repository.JwtTokenRepository;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service.condition.LoginCondition;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.entity.JwtProvider;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service.information.JwtLoginInformation;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.Member;
 import codesquad.kr.gyeonggidoidle.issuetracker.domain.member.repository.MemberRepository;
 import codesquad.kr.gyeonggidoidle.issuetracker.exception.IllegalJwtTokenException;

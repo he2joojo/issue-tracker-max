@@ -1,6 +1,6 @@
-package codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.controller.request;
+package codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.controller.request;
 
-import codesquad.kr.gyeonggidoidle.issuetracker.domain.jwt.service.condition.LoginCondition;
+import codesquad.kr.gyeonggidoidle.issuetracker.domain.auth.service.condition.LoginCondition;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import lombok.Builder;
